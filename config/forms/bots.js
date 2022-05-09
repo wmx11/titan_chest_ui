@@ -1,0 +1,57 @@
+export const botsForm = [
+  {
+    name: 'name',
+    label: 'Name',
+    type: 'text',
+    value: '',
+  },
+  {
+    name: 'presence',
+    label: 'Presence',
+    type: 'text',
+    value: '',
+  },
+  {
+    name: 'tracking',
+    label: 'Tracking',
+    type: 'select',
+    value: '',
+    data: [
+      { id: 'price', name: 'Price' },
+      { id: 'treasury', name: 'Treasury' },
+      { id: 'marketcap', name: 'Marketcap' },
+      { id: 'holders', name: 'Holders' },
+      { id: 'pair_price', name: 'Pair price' },
+      { id: 'liquidity', name: 'Liquidity' },
+      { id: 'average_holdings', name: 'Average holdings' },
+      { id: 'rfv', name: 'RFV' },
+    ],
+  },
+  {
+    name: 'bot_id',
+    label: 'Bot ID',
+    type: 'text',
+    parse: false,
+    value: '',
+  },
+  {
+    name: 'token',
+    label: 'Discord API token',
+    type: 'password',
+    display: false,
+    value: '',
+  },
+  {
+    name: 'project_id',
+    label: 'Project',
+    type: 'select',
+    value: 0,
+    data: [],
+  },
+  {
+    name: 'enabled',
+    label: 'Enabled',
+    type: 'checkbox',
+    value: false,
+  },
+];
