@@ -1,22 +1,9 @@
-import axios from 'axios';
 import Head from 'next/head';
 import Container from '../components/Container';
 import Heading from '../components/Heading';
 import StatsTab from '../components/StatsTab';
-import routes from '../config/routes';
-
-const test = async () => {
-    const req = await axios({
-    method: 'get',
-    url: `${routes.titan_chest}/project/get`
-  });
-
-  console.log(req);
-}
 
 export default function Home() {
-  test()
-  
   return (
     <div>
       <Head>
