@@ -1,6 +1,5 @@
 import NextAuth from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import routes from '../../../config/routes';
 
 export default NextAuth({
   providers: [
@@ -21,7 +20,7 @@ export default NextAuth({
         },
       },
       async authorize(credentials, req) {
-        const res = await fetch(`${routes.titan_chest}/user/login`, {
+        const res = await fetch(`${process.env.HOST_API_INTERNAL}/user/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: {
