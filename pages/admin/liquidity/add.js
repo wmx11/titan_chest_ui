@@ -20,8 +20,8 @@ function Add({ formData }) {
 }
 
 export const getServerSideProps = async () => {
-  const tokens = await getTokensList();
-  const projects = await getProjectsList();
+  const tokens = await getTokensList('', true);
+  const projects = await getProjectsList('', true);
   const formData = liquidityForm.map((form) => {
 
     if (form.name === 'token_id') {

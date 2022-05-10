@@ -34,7 +34,7 @@ function Abi({ abi }) {
 }
 
 export const getServerSideProps = async () => {
-  const abi = await getAbiList();
+  const abi = await getAbiList('', true);
   return {
     props: {
       abi,

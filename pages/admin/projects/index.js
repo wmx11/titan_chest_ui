@@ -34,7 +34,7 @@ function Home({ projects }) {
 }
 
 export const getServerSideProps = async () => {
-  const projects = await getProjectsList();
+  const projects = await getProjectsList('', true);
 
   return {
     props: {

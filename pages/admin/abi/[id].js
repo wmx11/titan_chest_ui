@@ -27,9 +27,9 @@ function Update({ formData, name }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
-  const abi = await getAbiList(query.id);
-  const tokens = await getTokensList();
-  const projects = await getProjectsList();
+  const abi = await getAbiList(query.id, true);
+  const tokens = await getTokensList('', true);
+  const projects = await getProjectsList('', true);
   const name = abi.name;
 
   const formData = abiForm.map((form) => {

@@ -29,9 +29,9 @@ function Liquidity({ formData, name }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
-  const liquidity = await getLiquidityList(query.id);
-  const tokens = await getTokensList();
-  const projects = await getProjectsList();
+  const liquidity = await getLiquidityList(query.id, true);
+  const tokens = await getTokensList('', true);
+  const projects = await getProjectsList('', true);
   const name = liquidity.name;
 
   const formData = liquidityForm.map((form) => {

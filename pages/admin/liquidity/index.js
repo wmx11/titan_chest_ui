@@ -34,7 +34,7 @@ function Networks({ liquidity }) {
 }
 
 export const getServerSideProps = async () => {
-  const liquidity = await getLiquidityList();
+  const liquidity = await getLiquidityList('', true);
 
   return {
     props: {

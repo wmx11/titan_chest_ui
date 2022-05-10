@@ -27,9 +27,9 @@ function Token({ formData, name }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
-  const token = await getTokensList(query.id);
-  const abi = await getAbiList();
-  const network = await getNetworksList();
+  const token = await getTokensList(query.id, true);
+  const abi = await getAbiList('', true);
+  const network = await getNetworksList('', true);
   const name = token.name;
   const formData = tokenForm.map((form) => {
     form.value = token[form.name];

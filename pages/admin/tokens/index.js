@@ -34,7 +34,7 @@ function Tokens({ tokens }) {
 }
 
 export const getServerSideProps = async () => {
-  const tokens = await getTokensList();
+  const tokens = await getTokensList('', true);
 
   return {
     props: {

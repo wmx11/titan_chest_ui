@@ -34,7 +34,7 @@ function Bots({ bots }) {
 }
 
 export const getServerSideProps = async () => {
-  const bots = await getBotsList();
+  const bots = await getBotsList('', true);
   return {
     props: {
       bots,

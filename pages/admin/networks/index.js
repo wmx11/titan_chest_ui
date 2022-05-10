@@ -34,7 +34,7 @@ function Networks({ networks }) {
 }
 
 export const getServerSideProps = async () => {
-  const networks = await getNetworksList();
+  const networks = await getNetworksList('', true);
 
   return {
     props: {

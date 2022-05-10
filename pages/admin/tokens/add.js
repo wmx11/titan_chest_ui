@@ -21,8 +21,8 @@ function Add({ formData }) {
 }
 
 export const getServerSideProps = async () => {
-  const abi = await getAbiList();
-  const networks = await getNetworksList();
+  const abi = await getAbiList('', true);
+  const networks = await getNetworksList('', true);
   const formData = tokenForm.map((form) => {
     if (form.name === 'abi_id') {
       form.data = abi;

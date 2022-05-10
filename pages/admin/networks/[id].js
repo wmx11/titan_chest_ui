@@ -23,7 +23,7 @@ function Network({ formData, name }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
-  const network = await getNetworksList(query.id);
+  const network = await getNetworksList(query.id, true);
   const name = network.name;
   const formData = networkForm.map((form) => {
     form.value = network[form.name];

@@ -24,9 +24,9 @@ function Add({ formData }) {
 }
 
 export const getServerSideProps = async () => {
-  const abi = await getAbiList();
-  const networks = await getNetworksList();
-  const tokens = await getTokensList();
+  const abi = await getAbiList('', true);
+  const networks = await getNetworksList('', true);
+  const tokens = await getTokensList('', true);
 
   const formData = projectForm.map((form) => {
     if (form.name === 'abi_id') {

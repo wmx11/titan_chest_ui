@@ -27,10 +27,10 @@ const Project = ({ formData, name }) => {
 };
 
 export const getServerSideProps = async ({ query }) => {
-  const project = await getProjectsList(query.id);
-  const abi = await getAbiList();
-  const networks = await getNetworksList();
-  const tokens = await getTokensList();
+  const project = await getProjectsList(query.id, true);
+  const abi = await getAbiList('', true);
+  const networks = await getNetworksList('', true);
+  const tokens = await getTokensList('', true);
 
   const formData = projectForm.map((form) => {
     form.value = project[form.name];

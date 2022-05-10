@@ -22,7 +22,7 @@ function add({ formData }) {
 }
 
 export const getServerSideProps = async () => {
-  const projects = await getProjectsList();
+  const projects = await getProjectsList('', true);
 
   const formData = botsForm.map((form) => {
     if (form.name === 'project_id') {

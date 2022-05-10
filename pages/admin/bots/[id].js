@@ -23,8 +23,8 @@ function Update({ formData, name }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
-  const bots = await getBotsList(query.id);
-  const projects = await getProjectsList();
+  const bots = await getBotsList(query.id, true);
+  const projects = await getProjectsList('', true);
   const name = bots.name;
 
   const formData = botsForm.map((form) => {
