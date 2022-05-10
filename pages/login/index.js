@@ -12,10 +12,7 @@ function Login({ csrfToken }) {
           <Input name="csrfToken" type="hidden" value={csrfToken} />
           <Input label="Username" name="name" />
           <Input label="Password" name="password" type="password" />
-          <div className="flex justify-between items-center">
-            <div>
-              <div>Register</div>
-            </div>
+          <div className="flex justify-end items-center">
             <BlueButton type="submit">Log in</BlueButton>
           </div>
         </Form>
