@@ -1,5 +1,9 @@
 version: '3.9'
 services:
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
   titan-chest-ui:
     build:
       context: .
@@ -7,5 +11,8 @@ services:
     container_name: titan-chest-ui
     volumes:
       - .:/app
-    ports:
-      - 3000:3000
+
+networks:
+  default:
+    external:
+      name: titan-chest-network
