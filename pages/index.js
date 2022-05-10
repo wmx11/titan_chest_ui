@@ -31,33 +31,39 @@ export default function Home({ titano }) {
             {data && (
               <p className="mb-4 text-white text-sm">
                 Last updated:{' '}
-                <em>
-                  {format(new Date(data.created_at), 'yyy-dd-MM H:mm')} UTC+0
-                </em>
+                <em>{format(new Date(data.created_at), 'yyy-dd-MM H:mm')}</em>
               </p>
             )}
           </div>
           {data && (
             <div className="flex flex-grow flex-wrap justify-center">
               {data.price && (
-                <StatsTab value={toCurrency(data.price)} name="Price" />
+                <StatsTab value={toCurrency(data.price, 4)} name="Price" />
               )}
 
               {data.marketcap && (
                 <StatsTab
-                  value={toCurrency(data.marketcap)}
+                  value={toCurrency(data.marketcap, 10)}
                   name="Market Cap"
                 />
               )}
 
               {data.treasury && (
-                <StatsTab value={toCurrency(data.treasury)} name="Treasury" />
+                <StatsTab
+                  value={toCurrency(data.treasury, 10)}
+                  name="Treasury"
+                />
               )}
 
-              {data.rfv && <StatsTab value={toCurrency(data.rfv)} name="RFV" />}
+              {data.rfv && (
+                <StatsTab value={toCurrency(data.rfv, 10)} name="RFV" />
+              )}
 
               {data.liquidity && (
-                <StatsTab value={toCurrency(data.liquidity)} name="Liquidity" />
+                <StatsTab
+                  value={toCurrency(data.liquidity, 10)}
+                  name="Liquidity"
+                />
               )}
 
               {data.pair_price && (
