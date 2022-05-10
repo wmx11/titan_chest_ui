@@ -4,7 +4,6 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
-RUN npm install pm2 -g
 
 FROM node:alpine AS builder
 WORKDIR /app
@@ -15,6 +14,7 @@ COPY .env* ./
 RUN npm run build
 
 FROM node:alpine AS runner
+RUN npm install pm2 -g
 WORKDIR /app
 
 RUN addgroup -g 1001 -S nodejs
@@ -32,4 +32,4 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD npm run start
+CMD ["pm2-runtime", "start", "npm", "--", "start"]
