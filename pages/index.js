@@ -11,7 +11,7 @@ export default function Home({ titano }) {
   const [data, setData] = useState('');
 
   useEffect(() => {
-    if (!titano.length) {
+    if (!titano) {
       return;
     }
 
@@ -31,7 +31,7 @@ export default function Home({ titano }) {
             {data && (
               <p className="mb-4 text-white text-sm">
                 Last updated:{' '}
-                <em>{format(new Date(data.created_at), 'yyy-dd-MM H:mm')}</em>
+                <em>{format(new Date(data.created_at), 'yyyy-MM-dd HH:mm')}</em>
               </p>
             )}
           </div>
