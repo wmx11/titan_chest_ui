@@ -20,7 +20,7 @@ export default function Document() {
           property="og:description"
           content="Titano Stats and utilities all in one place on Titan Chest."
         />
-        <meta property="og:title" content="Titan Cheset | Titano Stats" />
+        <meta property="og:title" content="Titan Chest | Titano Stats" />
         <meta property="og:type" content="article" />
         <meta
           property="og:image"
