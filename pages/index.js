@@ -87,14 +87,14 @@ export default function Home({ titano }) {
               {data.holders && (
                 <StatsTab
                   value={data.holders.toLocaleString()}
-                  name="Holders"
+                  name="Holders (>= 1 Titano)"
                 />
               )}
 
               {data.average_holdings && (
                 <StatsTab
                   value={data.average_holdings.toLocaleString()}
-                  name="Average holdings (Titano Tokens)"
+                  name="Average Holdings (Titano Tokens)"
                 />
               )}
 
