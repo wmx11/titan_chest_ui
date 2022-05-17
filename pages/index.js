@@ -38,38 +38,63 @@ export default function Home({ titano }) {
           {data && (
             <div className="flex flex-grow flex-wrap justify-center">
               {data.price && (
-                <StatsTab value={toCurrency(data.price, 4)} name="Price" />
+                <StatsTab
+                  value={toCurrency(
+                    data.price,
+                    data.price.toFixed(3).length - 1
+                  )}
+                  name="Price"
+                />
               )}
 
               {data.marketcap && (
                 <StatsTab
-                  value={toCurrency(data.marketcap, 10)}
+                  value={toCurrency(
+                    data.marketcap,
+                    data.marketcap.toFixed(3).length - 1
+                  )}
                   name="Market Cap"
                 />
               )}
 
               {data.treasury && (
                 <StatsTab
-                  value={toCurrency(data.treasury, 10)}
+                  value={toCurrency(
+                    data.treasury,
+                    data.treasury.toFixed(3).length - 1
+                  )}
                   name="Treasury"
                 />
               )}
 
               {data.rfv && (
-                <StatsTab value={toCurrency(data.rfv, 10)} name="RFV" />
+                <StatsTab
+                  value={toCurrency(data.rfv, data.rfv.toFixed(3).length - 1)}
+                  name="RFV"
+                />
               )}
 
               {data.liquidity && (
                 <StatsTab
-                  value={toCurrency(data.liquidity, 10)}
+                  value={toCurrency(
+                    data.liquidity,
+                    data.liquidity.toFixed(3).length - 1
+                  )}
                   name="Liquidity"
                 />
               )}
 
-              {data.pair_price && (
+              {data.holders && (
                 <StatsTab
-                  value={toCurrency(data.pair_price)}
-                  name="BNB Price"
+                  value={data.holders.toLocaleString()}
+                  name="Holders"
+                />
+              )}
+
+              {data.average_holdings && (
+                <StatsTab
+                  value={data.average_holdings.toLocaleString()}
+                  name="Average holdings (Titano Tokens)"
                 />
               )}
 
@@ -81,6 +106,16 @@ export default function Home({ titano }) {
                 })}
                 name="Backed Liquidity"
               />
+
+              {data.pair_price && (
+                <StatsTab
+                  value={toCurrency(
+                    data.pair_price,
+                    data.pair_price.toFixed(3).length - 1
+                  )}
+                  name="BNB Price"
+                />
+              )}
             </div>
           )}
         </Container>
