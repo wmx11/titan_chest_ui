@@ -24,6 +24,18 @@ export const projectForm = [
     value: '',
   },
   {
+    name: 'holders_endpoint',
+    label: 'Holders endpoint',
+    type: 'text',
+    value: '',
+  },
+  {
+    name: 'average_holdings_endpoint',
+    label: 'Average holdings endpoint',
+    type: 'text',
+    value: '',
+  },
+  {
     name: 'abi_id',
     label: 'ABI',
     type: 'select',
