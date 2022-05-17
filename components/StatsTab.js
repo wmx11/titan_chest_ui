@@ -6,7 +6,7 @@ function StatsTab({ name, value }) {
       <p className="text-titano-green drop-shadow-[0px_0px_3px_rgb(0,253,213)] text-xl">
         {value}
       </p>
-      <p className="text-slate-100 text-sm">{name}</p>
+      <p className="text-slate-100 text-xs mt-1">{name}</p>
     </div>
   );
 }
