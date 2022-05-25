@@ -68,13 +68,13 @@ export default function Home({ titano, titanoLastDay, underStatsBlock }) {
 export const getServerSideProps = async () => {
   const titano = await getStatsList('Titano', true);
   const titanoLastDay = await getStatsList('Titano?last_day=true', true);
-  const underStatsBlock = await getCmsContent('content-blocks/1', true);
+  // const underStatsBlock = await getCmsContent('content-blocks/1', true);
 
   return {
     props: {
       titano,
       titanoLastDay,
-      underStatsBlock,
+      // underStatsBlock,
     },
   };
 };
