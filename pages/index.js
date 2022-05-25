@@ -1,14 +1,18 @@
-import { format } from 'date-fns';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import Line from '../components/Charts/Line';
 import Container from '../components/Container';
-import Heading from '../components/Heading';
-import StatsTab from '../components/StatsTab';
-import { getBackedLiquidity, getStatsList } from '../utils/getters';
-import toCurrency from '../utils/toCurrency';
+import Layout from '../components/Layouts/titanchest/Layout';
+import MarketDataGroup from '../components/Stats/MarketDataGroup';
+import useChartData from '../hooks/charts/useChartData';
+import { getCmsContent, getStatsList } from '../utils/getters';
 
-export default function Home({ titano }) {
+export default function Home({ titano, titanoLastDay, underStatsBlock }) {
+  const { chartData, labels, type, chartName, execute } =
+    useChartData();
   const [data, setData] = useState('');
+  const [lastDayData, setLastDayData] = useState('');
+  const [contentBlock, setContentBlock] = useState('');
 
   useEffect(() => {
     if (!titano) {
@@ -16,119 +20,61 @@ export default function Home({ titano }) {
     }
 
     setData(titano[0]);
-  }, [titano]);
+
+    if (titanoLastDay) {
+      setLastDayData(titanoLastDay[0]);
+    }
+
+    if (underStatsBlock) {
+      setContentBlock(underStatsBlock);
+    }
+  }, [titano, titanoLastDay, underStatsBlock]);
 
   return (
     <div>
       <Head>
         <title>Titan Chest</title>
       </Head>
-
-      <main className="bg-slate-900 min-h-screen">
+      <Layout>
         <Container>
-          <div className="flex justify-center items-center flex-col">
-            <Heading className="text-white">Titano Stats</Heading>
-            {data && (
-              <p className="mb-4 text-white text-sm">
-                Last updated:{' '}
-                <em>{format(new Date(data.created_at), 'yyyy-MM-dd HH:mm')}</em>
-              </p>
-            )}
-          </div>
-          {data && (
-            <div className="flex flex-grow flex-wrap justify-center">
-              {data.price && (
-                <StatsTab
-                  value={toCurrency(
-                    data.price,
-                    data.price.toFixed(3).length - 1
-                  )}
-                  name="Price"
-                />
-              )}
+          <MarketDataGroup
+            data={data}
+            lastDayData={lastDayData}
+            onChartSelect={execute}
+          />
 
-              {data.marketcap && (
-                <StatsTab
-                  value={toCurrency(
-                    data.marketcap,
-                    data.marketcap.toFixed(3).length - 1
-                  )}
-                  name="Market Cap"
-                />
-              )}
-
-              {data.treasury && (
-                <StatsTab
-                  value={toCurrency(
-                    data.treasury,
-                    data.treasury.toFixed(3).length - 1
-                  )}
-                  name="Treasury"
-                />
-              )}
-
-              {data.rfv && (
-                <StatsTab
-                  value={toCurrency(data.rfv, data.rfv.toFixed(3).length - 1)}
-                  name="RFV"
-                />
-              )}
-
-              {data.liquidity && (
-                <StatsTab
-                  value={toCurrency(
-                    data.liquidity,
-                    data.liquidity.toFixed(3).length - 1
-                  )}
-                  name="Liquidity"
-                />
-              )}
-
-              {data.holders && (
-                <StatsTab
-                  value={data.holders.toLocaleString()}
-                  name="Holders (>= 1 Titano)"
-                />
-              )}
-
-              {data.average_holdings && (
-                <StatsTab
-                  value={data.average_holdings.toLocaleString()}
-                  name="Average Holdings (Titano Tokens)"
-                />
-              )}
-
-              <StatsTab
-                value={getBackedLiquidity({
-                  rfv: data.rfv,
-                  treasury: data.treasury,
-                  liquidity: data.liquidity,
-                })}
-                name="Backed Liquidity"
-              />
-
-              {data.pair_price && (
-                <StatsTab
-                  value={toCurrency(
-                    data.pair_price,
-                    data.pair_price.toFixed(3).length - 1
-                  )}
-                  name="BNB Price"
-                />
-              )}
-            </div>
+          {contentBlock && (
+            <div
+              className="text-white text-xs break-all"
+              dangerouslySetInnerHTML={{ __html: contentBlock.content }}
+            ></div>
           )}
         </Container>
-      </main>
+
+        {chartData && (
+          <Container className="w-full md:w-1/2">
+            <Line
+              data={{ data: chartData, labels }}
+              type={type}
+              chartLabel={chartName}
+            />
+          </Container>
+        )}
+      </Layout>
     </div>
   );
 }
 
 export const getServerSideProps = async () => {
   const titano = await getStatsList('Titano', true);
+  const titanoLastDay = await getStatsList('Titano?last_day=true', true);
+  const underStatsBlock = await getCmsContent('content-blocks/1', true);
+
   return {
     props: {
       titano,
+      titanoLastDay,
+      underStatsBlock,
     },
   };
 };

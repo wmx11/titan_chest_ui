@@ -1,7 +1,8 @@
+import axios from 'axios';
 import routes from '../config/routes';
 
 const getApiHost = (isServerSide = false) => {
-  return isServerSide ? process.env.HOST_API_INTERNAL : routes.titan_chest;
+  return isServerSide ? process.env.HOST_API_INTERNAL : routes.titan_chest_axios;
 };
 
 /**
@@ -64,4 +65,33 @@ export const getBackedLiquidity = ({ rfv, treasury, liquidity }) => {
   const assets = rfv + treasury;
   const backedLiquidity = (assets * 100) / liquidity;
   return `${backedLiquidity.toFixed()}%`;
+};
+
+export const getCmsContent = async (id = '', isServerSide) => {
+  try {
+    const {
+      data: { data },
+    } = await axios({
+      url: `${
+        isServerSide ? process.env.TITAN_CHEST_CMS_URL : routes.titan_chest_cms
+      }/${id}`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${isServerSide ? process.env.TITAN_CHEST_CMS_TOKEN : process.env.NEXT_PUBLIC_TITAN_CHEST_CMS_TOKEN}`,
+      },
+    });
+
+    if (data === null) {
+      return null;
+    }
+
+    if (Array.isArray(data)) {
+      return data;
+    }
+
+    return data.attributes;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

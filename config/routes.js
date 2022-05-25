@@ -19,7 +19,12 @@ const routes = {
   titan_chest: isDev
     ? 'http://titan-chest-api:2000/api/v1'
     : process.env.NEXT_PUBLIC_HOST_API,
-  titan_chest_ui: isDev ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_HOST,
+  titan_chest_ui: isDev
+    ? 'http://localhost:3000'
+    : process.env.NEXT_PUBLIC_HOST,
+  titan_chest_cms: isDev
+    ? 'http://localhost:1337/api'
+    : process.env.NEXT_PUBLIC_TITAN_CHEST_CMS_URL,
 };
 
 export const titanChest = {
