@@ -27,7 +27,7 @@ function Index() {
               left: '0',
               border: '0',
             }}
-            src="https://dexscreener.com/bsc/0x072856bC98e65ECaf8cA6412567e894617cC62c2?embed=1&theme=dark&info=0"
+            src="https://dexscreener.com/bsc/0x072856bC98e65ECaf8cA6412567e894617cC62c2?embed=1&theme=dark"
           ></iframe>
         </div>
       </Container>
