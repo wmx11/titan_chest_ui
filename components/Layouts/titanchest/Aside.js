@@ -1,17 +1,5 @@
-import Link from 'next/link';
 import React, { useState } from 'react';
-
-const MenuLink = ({ href, children }) => {
-  return (
-    <Link href={href}>
-      <a>
-        <li className="mb-2 px-4 py-3 hover:bg-slate-800 rounded-md text-slate-100">
-          {children}
-        </li>
-      </a>
-    </Link>
-  );
-};
+import MenuLink from './MenuLink';
 
 function Aside() {
   const [isOpen, setIsOpen] = useState(true);
@@ -38,6 +26,7 @@ function Aside() {
       <div>
         <ul className="text-xs">
           <MenuLink href="/">Home</MenuLink>
+          <MenuLink href="/trading-chart">Trading Chart</MenuLink>
         </ul>
       </div>
     </div>
