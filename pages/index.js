@@ -1,4 +1,5 @@
 import { Loader } from '@mantine/core';
+import axios from 'axios';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
@@ -7,37 +8,46 @@ import Container from '../components/Container';
 import Layout from '../components/Layouts/titanchest/Layout';
 import MarketDataGroup from '../components/Stats/MarketDataGroup';
 import useChartData from '../hooks/charts/useChartData';
-import { getStatsList } from '../utils/getters';
+import { PresentationChartLineIcon } from '@heroicons/react/solid';
+import { getCmsContent, getStatsList } from '../utils/getters';
+import CmsBlock from '../components/CmsBlock';
 
-export default function Home({ titano, titanoLastDay, underStatsBlock }) {
-  const { data, error } = useSWR(
+export default function Home({ titano, titanoLastDay, cmsContent }) {
+  const [titanoData, setTitanoData] = useState('');
+
+  useSWR(
     'titano',
     async () => {
       const data = await getStatsList('Titano', false);
-      return data[0];
+      const {
+        data: { data: fearData },
+      } = await axios('https://api.alternative.me/fng/');
+
+      const response = {
+        ...data[0],
+        fear_index: fearData[0].value_classification,
+        fear_value: fearData[0].value,
+      };
+
+      setTitanoData(response);
+
+      return response;
     },
     { refreshInterval: 1000 * 60 }
   );
 
   const [lastDayData, setLastDayData] = useState('');
-
-  const [contentBlock, setContentBlock] = useState('');
-
   const { chartData, labels, type, chartName, execute } = useChartData();
 
   useEffect(() => {
-    if (!titano) {
-      return;
+    if (titano) {
+      setTitanoData(titano[0]);
     }
 
     if (titanoLastDay) {
       setLastDayData(titanoLastDay[0]);
     }
-
-    if (underStatsBlock) {
-      setContentBlock(underStatsBlock);
-    }
-  }, [titano, titanoLastDay, underStatsBlock]);
+  }, [titano, titanoLastDay]);
 
   return (
     <div>
@@ -46,9 +56,9 @@ export default function Home({ titano, titanoLastDay, underStatsBlock }) {
       </Head>
       <Layout>
         <Container>
-          {data ? (
+          {titanoData ? (
             <MarketDataGroup
-              data={data}
+              data={titanoData}
               lastDayData={lastDayData}
               onChartSelect={execute}
             />
@@ -57,24 +67,29 @@ export default function Home({ titano, titanoLastDay, underStatsBlock }) {
               <Loader color="green" />
             </div>
           )}
-
-          {contentBlock && (
-            <div
-              className="text-white text-xs break-all"
-              dangerouslySetInnerHTML={{ __html: contentBlock.content }}
-            ></div>
-          )}
         </Container>
 
-        {chartData && (
-          <Container className="w-full md:w-1/2">
+        {chartData ? (
+          <Container className="w-full md:w-1/2 bg-slate-900/30 rounded-md shadow-lg">
             <Line
               data={{ data: chartData, labels }}
               type={type}
               chartLabel={chartName}
             />
           </Container>
+        ) : (
+          <Container className="flex justify-center items-center bg-slate-900/30 rounded-md shadow-lg">
+            <div className="h-full items-center text-slate-200">
+              Click the
+              <PresentationChartLineIcon className="h-5 w-5 inline mx-2" />
+              icon in the stats tab to see the charts.
+            </div>
+          </Container>
         )}
+
+        <Container className="mt-12">
+          <CmsBlock dataSet={cmsContent} block="home_disclaimer" />
+        </Container>
       </Layout>
     </div>
   );
@@ -83,11 +98,16 @@ export default function Home({ titano, titanoLastDay, underStatsBlock }) {
 export const getServerSideProps = async () => {
   const titano = await getStatsList('Titano', true);
   const titanoLastDay = await getStatsList('Titano?last_day=true', true);
+  const cmsContent = await getCmsContent(
+    'content-blocks?filters[block_name][$eq]=home_disclaimer&filters[enabled][$eq]=true',
+    true
+  );
 
   return {
     props: {
       titano,
       titanoLastDay,
+      cmsContent,
     },
   };
 };
