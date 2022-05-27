@@ -69,4 +69,13 @@ export const statsTemplate = [
     },
     tooltip: 'Displays the Titano token total supply.',
   },
+  {
+    entry: false,
+    name: 'Crypto Market Sentiment',
+    value: (data) => {
+      return `${data.fear_index || 'Scanning...'} ${data.fear_value ? `(${data.fear_value})` : ''}`;
+    },
+    tooltip:
+      'Overall market sentiment. Extreme fear can be a sign that investors are too worried. That could be a buying opportunity. When Investors are getting too greedy, that means the market is due for a correction.',
+  },
 ];
