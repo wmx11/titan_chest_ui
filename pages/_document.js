@@ -1,7 +1,10 @@
 import { createGetInitialProps } from '@mantine/next';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+import { GA_TRACKING_ID } from '../utils/gtags';
 
 const getInitialProps = createGetInitialProps();
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 export default class _Document extends Document {
   static getInitialProps = getInitialProps;
@@ -114,6 +117,29 @@ export default class _Document extends Document {
             content="/favicon/ms-icon-144x144.png"
           />
           <meta name="theme-color" content="#ffffff" />
+
+          {isProduction && (
+            <>
+              <script
+                async
+                src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+              />
+
+              <script
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{
+                  __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_TRACKING_ID}', {
+                  page_path: window.location.pathname,
+                });
+                `,
+                }}
+              />
+            </>
+          )}
         </Head>
         <body className="bg-slate-900 min-h-screen">
           <Main />
