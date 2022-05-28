@@ -88,7 +88,11 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
         )}
 
         <Container className="mt-12">
-          <CmsBlock dataSet={cmsContent} block="home_disclaimer" />
+          <CmsBlock
+            dataSet={cmsContent}
+            block="home_disclaimer"
+            provideStyles={true}
+          />
         </Container>
       </Layout>
     </div>

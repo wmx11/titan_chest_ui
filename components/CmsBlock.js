@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { TypographyStylesProvider } from '@mantine/core';
 
-function CmsBlock({ dataSet, block }) {
+function CmsBlock({ dataSet, block, provideStyles }) {
   const [data, setData] = useState('');
 
   useEffect(() => {
@@ -15,13 +16,23 @@ function CmsBlock({ dataSet, block }) {
     }
   }, [dataSet, block]);
 
-  return (
+  const CmsContent = () =>
     data && (
       <div
         className="text-white break-words"
         dangerouslySetInnerHTML={{ __html: data.content }}
       ></div>
-    )
+    );
+
+  return (
+    data &&
+    (provideStyles ? (
+      <TypographyStylesProvider>
+        <CmsContent />
+      </TypographyStylesProvider>
+    ) : (
+      <CmsContent />
+    ))
   );
 }
 
