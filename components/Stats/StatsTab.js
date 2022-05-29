@@ -15,11 +15,11 @@ function StatsTab({ name, value, dayChange, tooltip, type, onChartSelect }) {
             {value}
           </div>
           <p className="text-slate-100 text-xs mt-1">{name}</p>
-          {dayChange && (
+          {dayChange !== undefined && (
             <div className="absolute top-0 right-0 flex justify-between w-full px-2">
               <p className="text-slate-100 text-xs mt-1">24h %</p>
               <p className="text-slate-100 text-xs mt-1">
-                {dayChange && (
+                {dayChange !== undefined && (
                   <strong
                     className={`${
                       dayChange > 0 ? 'text-titano-green' : 'text-titano-pink'
@@ -52,7 +52,7 @@ function StatsTab({ name, value, dayChange, tooltip, type, onChartSelect }) {
                 <InformationCircleIcon className="h-4 w-4" />
               </Tooltip>
             </div>
-            {dayChange && (
+            {dayChange !== undefined && (
               <div className="text-slate-100 text-xs mt-1">
                 <PresentationChartLineIcon
                   className="h-4 w-4 cursor-pointer"
