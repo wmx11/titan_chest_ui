@@ -18,7 +18,7 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
   useSWR(
     'titano',
     async () => {
-      const data = await getStatsList('Titano', false);
+      const data = await getStatsList('Titano?compute=total_supply', false);
       const {
         data: { data: fearData },
       } = await axios('https://api.alternative.me/fng/');
@@ -100,8 +100,8 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
 }
 
 export const getServerSideProps = async () => {
-  const titano = await getStatsList('Titano', true);
-  const titanoLastDay = await getStatsList('Titano?last_day=true', true);
+  const titano = await getStatsList('Titano?compute=total_supply', true);
+  const titanoLastDay = await getStatsList('Titano?last_day=true&compute=total_supply', true);
   const cmsContent = await getCmsContent(
     'content-blocks?filters[block_name][$eq]=home_disclaimer&filters[enabled][$eq]=true',
     true
