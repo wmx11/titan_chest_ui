@@ -62,7 +62,8 @@ export const statsTemplate = [
       'Displays the $USD value of BNB token. (Titano main liquidity pair)',
   },
   {
-    entry: false,
+    entry: 'total_supply',
+    compute: 'marketcap,price,total_supply',
     name: 'Total Supply',
     value: (data) => {
       return (data.marketcap / data.price).toLocaleString();
@@ -73,9 +74,18 @@ export const statsTemplate = [
     entry: false,
     name: 'Crypto Market Sentiment',
     value: (data) => {
-      return `${data.fear_index || 'Scanning...'} ${data.fear_value ? `(${data.fear_value})` : ''}`;
+      return `${data.fear_index || 'Scanning...'} ${
+        data.fear_value ? `(${data.fear_value})` : ''
+      }`;
     },
     tooltip:
       'Overall market sentiment. Extreme fear can be a sign that investors are too worried. That could be a buying opportunity. When Investors are getting too greedy, that means the market is due for a correction.',
+  },
+  {
+    entry: 'burned_tokens',
+    name: 'Tokens Burned',
+    currency: false,
+    tooltip:
+      'Displays the amount of Titano tokens in the burn wallet. Please keep in mind that tokens inside the burn wallet are also receiving rebases.',
   },
 ];
