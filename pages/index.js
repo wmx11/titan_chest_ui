@@ -1,7 +1,7 @@
 import { Loader } from '@mantine/core';
 import axios from 'axios';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
 import Line from '../components/Charts/Line';
 import Container from '../components/Container';
@@ -14,6 +14,8 @@ import CmsBlock from '../components/CmsBlock';
 
 export default function Home({ titano, titanoLastDay, cmsContent }) {
   const [titanoData, setTitanoData] = useState('');
+  const chartContainerRef = useRef();
+  const viewport = useRef();
 
   useSWR(
     'titano',
@@ -54,13 +56,13 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
       <Head>
         <title>Titan Chest</title>
       </Head>
-      <Layout>
+      <Layout viewportRef={viewport}>
         <Container>
           {titanoData ? (
             <MarketDataGroup
               data={titanoData}
               lastDayData={lastDayData}
-              onChartSelect={execute}
+              onChartSelect={execute(chartContainerRef, viewport)}
             />
           ) : (
             <div className="flex flex-col justify-center items-center">
@@ -70,7 +72,10 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
         </Container>
 
         {chartData ? (
-          <Container className="w-full md:w-1/2 bg-slate-900/30 rounded-md shadow-lg">
+          <Container
+            className="w-full md:w-1/2 bg-slate-900/30 rounded-md shadow-lg"
+            ref={chartContainerRef}
+          >
             <Line
               data={{ data: chartData, labels }}
               type={type}
@@ -79,7 +84,10 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
           </Container>
         ) : (
           <Container className="flex justify-center items-center bg-slate-900/30 rounded-md shadow-lg">
-            <div className="h-full items-center text-slate-200">
+            <div
+              className="h-full items-center text-slate-200"
+              ref={chartContainerRef}
+            >
               Click the
               <PresentationChartLineIcon className="h-5 w-5 inline mx-2" />
               icon in the stats tab to see the charts.
@@ -101,7 +109,10 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
 
 export const getServerSideProps = async () => {
   const titano = await getStatsList('Titano?compute=total_supply', true);
-  const titanoLastDay = await getStatsList('Titano?last_day=true&compute=total_supply', true);
+  const titanoLastDay = await getStatsList(
+    'Titano?last_day=true&compute=total_supply',
+    true
+  );
   const cmsContent = await getCmsContent(
     'content-blocks?filters[block_name][$eq]=home_disclaimer&filters[enabled][$eq]=true',
     true
