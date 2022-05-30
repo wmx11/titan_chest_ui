@@ -1,5 +1,6 @@
-import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import { useMediaQuery } from '@mantine/hooks';
 import { getStatsList } from '../../utils/getters';
 
 function useChartData(depth = 180) {
@@ -9,6 +10,7 @@ function useChartData(depth = 180) {
   const [chartName, setChartName] = useState('');
   const [labels, setLabels] = useState([]);
   const [errors, setErrors] = useState('');
+  const isSmallScreen = useMediaQuery('(max-width: 767px)');
 
   const execute = (chartRef, viewport) => (type, name) => {
     const isComputeType = type.includes(',');
@@ -37,7 +39,7 @@ function useChartData(depth = 180) {
         setErrors(error);
       });
 
-    if (chartRef && viewport) {
+    if (chartRef && viewport && isSmallScreen) {
       viewport.current.scrollTo({
         top: chartRef.current.offsetTop,
         behavior: 'smooth',
