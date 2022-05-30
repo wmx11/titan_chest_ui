@@ -5,7 +5,7 @@ import Sidenav from './Sidenav/Sidenav';
 
 function AdminLayout({ children }) {
   return (
-    <main className="flex">
+    <main className="flex bg-white">
       <Sidenav homeTitle="Dashboard" homeHref="/admin">
         <LinksGroup />
       </Sidenav>
