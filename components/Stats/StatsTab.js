@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TrendingUpIcon, TrendingDownIcon } from '@heroicons/react/outline';
 import {
   InformationCircleIcon,
   PresentationChartLineIcon,
 } from '@heroicons/react/solid';
-import { Tooltip } from '@mantine/core';
+import { Popover } from '@mantine/core';
 
 function StatsTab({ name, value, dayChange, tooltip, type, onChartSelect }) {
+  const [opened, setOpened] = useState(false);
+
   return (
     value && (
       <>
@@ -38,24 +40,37 @@ function StatsTab({ name, value, dayChange, tooltip, type, onChartSelect }) {
           )}
           <div className="absolute bottom-1 right-0 flex justify-between w-full px-2">
             <div className="text-slate-100 text-xs mt-1">
-              <Tooltip
-                label={tooltip}
+              <Popover
+                opened={opened}
+                target={
+                  <InformationCircleIcon
+                    className="h-6 w-6 md:h-4 md:w-4 cursor-pointer"
+                    onClick={() => setOpened(true)}
+                  />
+                }
+                onClose={() => setOpened(false)}
+                width={260}
                 withArrow
+                position="top-start"
+                withCloseButton
                 styles={{
-                  body: { background: '#DC02DF', fontWeight: 'bold' },
-                  arrow: { background: '#DC02DF' },
+                  body: {
+                    background: '#DC02DF',
+                    fontWeight: 'bold',
+                    borderColor: '#DC02DF',
+                    color: '#fff',
+                  },
+                  arrow: { background: '#DC02DF', borderColor: '#DC02DF' },
+                  close: { color: '#0F172A' },
                 }}
-                wrapLines={true}
-                width="200px"
-                allowPointerEvents={true}
               >
-                <InformationCircleIcon className="h-4 w-4" />
-              </Tooltip>
+                {tooltip}
+              </Popover>
             </div>
             {dayChange !== undefined && (
               <div className="text-slate-100 text-xs mt-1">
                 <PresentationChartLineIcon
-                  className="h-4 w-4 cursor-pointer"
+                  className="h-6 w-6 md:h-4 md:w-4 cursor-pointer"
                   onClick={() => onChartSelect(type, name)}
                 />
               </div>
