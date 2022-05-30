@@ -65,6 +65,7 @@ export const statsTemplate = [
     entry: 'total_supply',
     compute: 'marketcap,price,total_supply',
     name: 'Total Supply',
+    currency: false,
     value: (data) => {
       return (data.marketcap / data.price).toLocaleString();
     },
