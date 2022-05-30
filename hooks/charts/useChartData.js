@@ -10,7 +10,7 @@ function useChartData(depth = 180) {
   const [labels, setLabels] = useState([]);
   const [errors, setErrors] = useState('');
 
-  const execute = (type, name) => {
+  const execute = (chartRef, viewport) => (type, name) => {
     const isComputeType = type.includes(',');
     const chartType = isComputeType
       ? type.split(',')[type.split(',').length - 1]
@@ -36,6 +36,13 @@ function useChartData(depth = 180) {
       .catch((error) => {
         setErrors(error);
       });
+
+    if (chartRef && viewport) {
+      viewport.current.scrollTo({
+        top: chartRef.current.offsetTop,
+        behavior: 'smooth',
+      });
+    }
   };
 
   useEffect(() => {}, [chartData]);
