@@ -2,7 +2,7 @@ import { ScrollArea } from '@mantine/core';
 import React from 'react';
 import Aside from './Aside';
 
-function Layout({ children }) {
+function Layout({ children, viewportRef }) {
   return (
     <div className="flex max-h-screen">
       <Aside></Aside>
@@ -11,6 +11,8 @@ function Layout({ children }) {
           <ScrollArea
             type="hover"
             style={{ height: '100vh', paddingBottom: '100px', width: '100%' }}
+            viewportRef={viewportRef}
+            offsetScrollbars
           >
             {children}
           </ScrollArea>
