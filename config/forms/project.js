@@ -24,6 +24,12 @@ export const projectForm = [
     value: '',
   },
   {
+    name: 'burn_address',
+    label: 'Burn address',
+    type: 'text',
+    value: '',
+  },
+  {
     name: 'holders_endpoint',
     label: 'Holders endpoint',
     type: 'text',
@@ -58,7 +64,7 @@ export const projectForm = [
   },
   {
     name: 'token_pair_id',
-    label: 'LP Pair Token\'s Pair',
+    label: "LP Pair Token's Pair",
     type: 'select',
     value: 0,
     data: [],
