@@ -11,6 +11,11 @@ function useChartData(depth = 180) {
   const [errors, setErrors] = useState('');
 
   const execute = (type, name) => {
+    const isComputeType = type.includes(',');
+    const chartType = isComputeType
+      ? type.split(',')[type.split(',').length - 1]
+      : type;
+
     getStatsList(`Titano?select=${type},created_at&limit=${depth}`, false)
       .then((response) => {
         response &&
@@ -21,7 +26,9 @@ function useChartData(depth = 180) {
           );
 
         response &&
-          setChartData(response.map((chartData) => chartData[type]).reverse());
+          setChartData(
+            response.map((chartData) => chartData[chartType]).reverse()
+          );
         setType(type);
         setChartName(name);
         setStatus('idle');
