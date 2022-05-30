@@ -66,10 +66,14 @@ export const statsTemplate = [
     compute: 'marketcap,price,total_supply',
     name: 'Total Supply',
     currency: false,
-    value: (data) => {
-      return (data.marketcap / data.price).toLocaleString();
-    },
     tooltip: 'Displays the Titano token total supply.',
+  },
+  {
+    entry: 'burned_tokens',
+    name: 'Tokens Burned',
+    currency: false,
+    tooltip:
+      'Displays the amount of Titano tokens in the burn wallet. Please keep in mind that tokens inside the burn wallet are also receiving rebases.',
   },
   {
     entry: false,
@@ -81,12 +85,5 @@ export const statsTemplate = [
     },
     tooltip:
       'Overall market sentiment. Extreme fear can be a sign that investors are too worried. That could be a buying opportunity. When Investors are getting too greedy, that means the market is due for a correction.',
-  },
-  {
-    entry: 'burned_tokens',
-    name: 'Tokens Burned',
-    currency: false,
-    tooltip:
-      'Displays the amount of Titano tokens in the burn wallet. Please keep in mind that tokens inside the burn wallet are also receiving rebases.',
   },
 ];
