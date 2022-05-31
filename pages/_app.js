@@ -6,6 +6,7 @@ import * as gtag from '../utils/gtags';
 
 import '../styles/globals.css';
 import { useEffect } from 'react';
+import { SWRConfig } from 'swr';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -26,18 +27,20 @@ function MyApp({ Component, pageProps }) {
   }, [router.events]);
 
   return (
-    <MantineProvider
-      withGlobalStyles
-      withNormalizeCSS
-      theme={{
-        /** Put your mantine theme override here */
-        colorScheme: 'light',
-      }}
-    >
-      <SessionProvider>
-        <Component {...pageProps} />
-      </SessionProvider>
-    </MantineProvider>
+    <SWRConfig value={{ refreshInterval: 1000 * 60 }}>
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          /** Put your mantine theme override here */
+          colorScheme: 'light',
+        }}
+      >
+        <SessionProvider>
+          <Component {...pageProps} />
+        </SessionProvider>
+      </MantineProvider>
+    </SWRConfig>
   );
 }
 
