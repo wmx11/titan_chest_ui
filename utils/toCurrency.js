@@ -1,4 +1,4 @@
-const toCurrency = (number, maxDigits = 3) => {
+const toCurrency = (number) => {
   if (!number) {
     return;
   }
@@ -7,7 +7,7 @@ const toCurrency = (number, maxDigits = 3) => {
     style: 'currency',
     currency: 'USD',
     minimumSignificantDigits: 2,
-    maximumSignificantDigits: maxDigits,
+    maximumSignificantDigits: number.toFixed(3).length - 1,
   });
 };
 
