@@ -12,6 +12,15 @@ function Index({ cmsContent }) {
     <div>
       <Head>
         <title>Buy & Sell Titano</title>
+        <meta
+          name="description"
+          content="Buy and sell Titano on Titan Chest through Bogged Finance!"
+        />
+
+        <meta
+          property="og:description"
+          content="Buy and sell Titano on Titan Chest through Bogged Finance!"
+        />
       </Head>
       <Layout>
         <Container>

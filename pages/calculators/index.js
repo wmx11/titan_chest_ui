@@ -13,6 +13,15 @@ function Index() {
     <div>
       <Head>
         <title>Titan Chest Calculators</title>
+        <meta
+          name="description"
+          content="Titano calculators for better planning."
+        />
+
+        <meta
+          property="og:description"
+          content="Titano calculators for better planning."
+        />
       </Head>
       <Layout>
         <Container>

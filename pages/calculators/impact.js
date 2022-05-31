@@ -114,6 +114,15 @@ function Index({ titano, cmsContent }) {
     <div>
       <Head>
         <title>Titan Chest Price Impact Calculator</title>
+        <meta
+          name="description"
+          content="Titano price impact calculator. Find out how your or someone's transaction would affect the overall price of Titano!"
+        />
+
+        <meta
+          property="og:description"
+          content="Titano price impact calculator. Find out how your or someone's transaction would affect the overall price of Titano!"
+        />
       </Head>
       <Layout>
         <Container>
