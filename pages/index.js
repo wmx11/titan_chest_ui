@@ -11,32 +11,29 @@ import useChartData from '../hooks/charts/useChartData';
 import { PresentationChartLineIcon } from '@heroicons/react/solid';
 import { getCmsContent, getStatsList } from '../utils/getters';
 import CmsBlock from '../components/CmsBlock';
+import DarkBox from '../components/DarkBox';
 
 export default function Home({ titano, titanoLastDay, cmsContent }) {
   const [titanoData, setTitanoData] = useState('');
   const chartContainerRef = useRef();
   const viewport = useRef();
 
-  useSWR(
-    'titano',
-    async () => {
-      const data = await getStatsList('Titano?compute=total_supply', false);
-      const {
-        data: { data: fearData },
-      } = await axios('https://api.alternative.me/fng/');
+  useSWR('titano', async () => {
+    const data = await getStatsList('Titano?compute=total_supply', false);
+    const {
+      data: { data: fearData },
+    } = await axios('https://api.alternative.me/fng/');
 
-      const response = {
-        ...data[0],
-        fear_index: fearData[0].value_classification,
-        fear_value: fearData[0].value,
-      };
+    const response = {
+      ...data[0],
+      fear_index: fearData[0].value_classification,
+      fear_value: fearData[0].value,
+    };
 
-      setTitanoData(response);
+    setTitanoData(response);
 
-      return response;
-    },
-    { refreshInterval: 1000 * 60 }
-  );
+    return response;
+  });
 
   const [lastDayData, setLastDayData] = useState('');
   const { chartData, labels, type, chartName, execute } = useChartData();
@@ -72,35 +69,38 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
         </Container>
 
         {chartData ? (
-          <Container
-            className="w-full md:w-1/2 bg-slate-900/30 rounded-md shadow-lg"
-            ref={chartContainerRef}
-          >
-            <Line
-              data={{ data: chartData, labels }}
-              type={type}
-              chartLabel={chartName}
-            />
+          <Container className="w-full md:w-1/2" ref={chartContainerRef}>
+            <DarkBox>
+              <Line
+                data={{ data: chartData, labels }}
+                type={type}
+                chartLabel={chartName}
+              />
+            </DarkBox>
           </Container>
         ) : (
-          <Container className="flex justify-center items-center bg-slate-900/30 rounded-md shadow-lg">
-            <div
-              className="h-full items-center text-slate-200"
-              ref={chartContainerRef}
-            >
-              Click the
-              <PresentationChartLineIcon className="h-5 w-5 inline mx-2" />
-              icon in the stats tab to see the charts.
-            </div>
+          <Container>
+            <DarkBox>
+              <div
+                className="h-full text-center items-center text-slate-200"
+                ref={chartContainerRef}
+              >
+                Click the
+                <PresentationChartLineIcon className="h-5 w-5 inline mx-2" />
+                icon in the stats tab to see the charts.
+              </div>
+            </DarkBox>
           </Container>
         )}
 
-        <Container className="mt-12">
-          <CmsBlock
-            dataSet={cmsContent}
-            block="home_disclaimer"
-            provideStyles={true}
-          />
+        <Container className="mt-8">
+          <DarkBox>
+            <CmsBlock
+              dataSet={cmsContent}
+              block="home_disclaimer"
+              provideStyles={true}
+            />
+          </DarkBox>
         </Container>
       </Layout>
     </div>

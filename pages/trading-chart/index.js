@@ -13,6 +13,15 @@ function Index({ cmsContent }) {
     <div>
       <Head>
         <title>Titano Dexscreener Chart</title>
+        <meta
+          name="description"
+          content="Titano Dexscreener on Titan Chest"
+        />
+
+        <meta
+          property="og:description"
+          content="Titano Dexscreener on Titan Chest"
+        />
       </Head>
       <Layout>
         <Container>
