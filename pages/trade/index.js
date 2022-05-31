@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 import CmsBlock from '../../components/CmsBlock';
 import Container from '../../components/Container';
+import DarkBox from '../../components/DarkBox';
 import Heading from '../../components/Heading';
 import Layout from '../../components/Layouts/titanchest/Layout';
 import { getCmsContent } from '../../utils/getters';
@@ -30,11 +31,13 @@ function Index({ cmsContent }) {
           </div>
 
           <div className="flex-1 min-w-[300px]">
-            <CmsBlock
-              dataSet={cmsContent}
-              block="trade_content"
-              provideStyles={true}
-            />
+            <DarkBox>
+              <CmsBlock
+                dataSet={cmsContent}
+                block="trade_content"
+                provideStyles={true}
+              />
+            </DarkBox>
           </div>
         </Container>
       </Layout>
