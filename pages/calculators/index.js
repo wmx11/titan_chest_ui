@@ -1,12 +1,14 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
+import { Cash } from 'tabler-icons-react';
 import Container from '../../components/Container';
 import Heading from '../../components/Heading';
 import Layout from '../../components/Layouts/titanchest/Layout';
 import NeonCardWrapper from '../../components/NeonCardWrapper';
 import NeonText from '../../components/NeonText';
 import SmallText from '../../components/SmallText';
+import styles from '../../config/styles';
 
 function Index() {
   return (
@@ -30,6 +32,7 @@ function Index() {
             <Link href="/calculators/impact">
               <a>
                 <NeonCardWrapper className="text-center">
+                  <Cash size={25} color={styles.titanoGreen} />
                   <NeonText>Price Impact</NeonText>
                   <SmallText>
                     Calculate the price impact of a transaction.
