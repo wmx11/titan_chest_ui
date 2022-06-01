@@ -12,8 +12,14 @@ import { PresentationChartLineIcon } from '@heroicons/react/solid';
 import { getCmsContent, getStatsList } from '../utils/getters';
 import CmsBlock from '../components/CmsBlock';
 import DarkBox from '../components/DarkBox';
+import CmsRoadmap from '../components/CmsRoadmap';
 
-export default function Home({ titano, titanoLastDay, cmsContent }) {
+export default function Home({
+  titano,
+  titanoLastDay,
+  cmsContent,
+  cmsRoadmap,
+}) {
   const [titanoData, setTitanoData] = useState('');
   const chartContainerRef = useRef();
   const viewport = useRef();
@@ -93,8 +99,19 @@ export default function Home({ titano, titanoLastDay, cmsContent }) {
           </Container>
         )}
 
-        <Container className="mt-8">
-          <DarkBox>
+        <Container className="mt-8 flex flex-col flex-wrap justify-between md:flex-row gap-x-8">
+          {cmsRoadmap.length > 0 && (
+            <DarkBox className="flex-1 mb-8 min-w-[300px]">
+              <p className="mb-4 text-white text-2xl">Roadmap</p>
+              <CmsBlock
+                dataSet={cmsContent}
+                block="home_roadmap"
+                provideStyles={true}
+              />
+              <CmsRoadmap dataSet={cmsRoadmap} block="home_roadmap" />
+            </DarkBox>
+          )}
+          <DarkBox className="flex-1 mb-8">
             <CmsBlock
               dataSet={cmsContent}
               block="home_disclaimer"
@@ -114,7 +131,11 @@ export const getServerSideProps = async () => {
     true
   );
   const cmsContent = await getCmsContent(
-    'content-blocks?filters[block_name][$eq]=home_disclaimer&filters[enabled][$eq]=true',
+    'content-blocks?filters[block_name][$eq]=home_disclaimer&filters[block_name][$eq]=home_roadmap&filters[enabled][$eq]=true',
+    true
+  );
+  const cmsRoadmap = await getCmsContent(
+    'roadmaps?filters[block_name][$eq]=home_roadmap&filters[enabled][$eq]=true',
     true
   );
 
@@ -123,6 +144,7 @@ export const getServerSideProps = async () => {
       titano,
       titanoLastDay,
       cmsContent,
+      cmsRoadmap,
     },
   };
 };
