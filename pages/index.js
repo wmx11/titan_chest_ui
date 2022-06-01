@@ -1,7 +1,8 @@
-import { Loader } from '@mantine/core';
-import axios from 'axios';
+import Script from 'next/script';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
+import { Loader } from '@mantine/core';
 import useSWR from 'swr';
 import Line from '../components/Charts/Line';
 import Container from '../components/Container';
@@ -111,13 +112,33 @@ export default function Home({
               <CmsRoadmap dataSet={cmsRoadmap} block="home_roadmap" />
             </DarkBox>
           )}
-          <DarkBox className="flex-1 mb-8">
-            <CmsBlock
-              dataSet={cmsContent}
-              block="home_disclaimer"
-              provideStyles={true}
-            />
-          </DarkBox>
+
+          <div className="flex-1 mb-8">
+
+            {/* Homepage CMS Content */}
+            <DarkBox className="mb-8">
+              <CmsBlock
+                dataSet={cmsContent}
+                block="home_disclaimer"
+                provideStyles={true}
+              />
+            </DarkBox>
+
+            {/* Crypto Heat Map */}
+            <DarkBox>
+              <CmsBlock
+                dataSet={cmsContent}
+                block="home_heatmap"
+                provideStyles={true}
+              />
+              <coingecko-coin-heatmap-widget
+                height="400"
+                width="100%"
+                locale="en"
+              ></coingecko-coin-heatmap-widget>
+              <Script src="https://widgets.coingecko.com/coingecko-coin-heatmap-widget.js" />
+            </DarkBox>
+          </div>
         </Container>
       </Layout>
     </div>
@@ -131,7 +152,7 @@ export const getServerSideProps = async () => {
     true
   );
   const cmsContent = await getCmsContent(
-    'content-blocks?filters[block_name][$eq]=home_disclaimer&filters[block_name][$eq]=home_roadmap&filters[enabled][$eq]=true',
+    'content-blocks?filters[block_name][$eq]=home_disclaimer&filters[block_name][$eq]=home_roadmap&filters[block_name][$eq]=home_heatmap&filters[enabled][$eq]=true',
     true
   );
   const cmsRoadmap = await getCmsContent(
