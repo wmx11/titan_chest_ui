@@ -1,5 +1,5 @@
 import React from 'react';
-import { Timeline } from '@mantine/core';
+import { Timeline, TypographyStylesProvider } from '@mantine/core';
 import { Check, Clock } from 'tabler-icons-react';
 import useCmsData from '../hooks/cms/useCmsData';
 import NeonText from './NeonText';
@@ -26,16 +26,22 @@ function CmsRoadmap({ dataSet, block }) {
       color="grape"
     >
       {cmsData &&
-        cmsData.map(({ title, description, completed }, index) => (
-          <Timeline.Item
-            key={`${title}_${index}`}
-            lineVariant={completed ? 'solid' : 'dashed'}
-            bullet={completed ? <Check size={18} /> : <Clock size={18}/>}
-          >
-            <NeonText>{title}</NeonText>
-            <SmallText html={description} />
-          </Timeline.Item>
-        ))}
+        cmsData.map(({ title, description, completed }, index) => {
+          const sanitizedDescription = description.replaceAll('\\n', '');
+          
+          return (
+            <Timeline.Item
+              key={`${title}_${index}`}
+              lineVariant={completed ? 'solid' : 'dashed'}
+              bullet={completed ? <Check size={18} /> : <Clock size={18} />}
+            >
+              <NeonText>{title}</NeonText>
+              <TypographyStylesProvider>
+                <SmallText html={sanitizedDescription} />
+              </TypographyStylesProvider>
+            </Timeline.Item>
+          );
+        })}
     </Timeline>
   );
 }
