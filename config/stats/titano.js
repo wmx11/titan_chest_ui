@@ -80,7 +80,7 @@ export const statsTemplate = [
     name: 'Crypto Market Sentiment',
     value: (data) => {
       return `${data.fear_index || 'Scanning...'} ${
-        data.fear_value ? `(${data.fear_value})` : ''
+        data.fear_value ? `(${data.fear_value}/100)` : ''
       }`;
     },
     tooltip:
