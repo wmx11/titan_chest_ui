@@ -13,10 +13,7 @@ function Index({ cmsContent }) {
     <div>
       <Head>
         <title>Titano Dexscreener Chart</title>
-        <meta
-          name="description"
-          content="Titano Dexscreener on Titan Chest"
-        />
+        <meta name="description" content="Titano Dexscreener on Titan Chest" />
 
         <meta
           property="og:description"
@@ -33,7 +30,7 @@ function Index({ cmsContent }) {
             style={{
               position: 'relative',
               width: '100%',
-              paddingBottom: isSmallScreen ? '125%' : '100vh',
+              paddingBottom: isSmallScreen ? '200%' : '100vh',
             }}
           >
             <iframe

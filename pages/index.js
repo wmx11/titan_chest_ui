@@ -62,17 +62,19 @@ export default function Home({
       </Head>
       <Layout viewportRef={viewport}>
         <Container>
-          {titanoData ? (
-            <MarketDataGroup
-              data={titanoData}
-              lastDayData={lastDayData}
-              onChartSelect={execute(chartContainerRef, viewport)}
-            />
-          ) : (
-            <div className="flex flex-col justify-center items-center">
-              <Loader color="green" />
-            </div>
-          )}
+          <DarkBox>
+            {titanoData ? (
+              <MarketDataGroup
+                data={titanoData}
+                lastDayData={lastDayData}
+                onChartSelect={execute(chartContainerRef, viewport)}
+              />
+            ) : (
+              <div className="flex flex-col justify-center items-center">
+                <Loader color="green" />
+              </div>
+            )}
+          </DarkBox>
         </Container>
 
         {chartData ? (
@@ -100,7 +102,7 @@ export default function Home({
           </Container>
         )}
 
-        <Container className="mt-8 flex flex-col flex-wrap justify-between md:flex-row gap-x-8">
+        <Container className="flex flex-col flex-wrap justify-between md:flex-row gap-x-8">
           {cmsRoadmap.length > 0 && (
             <DarkBox className="flex-1 mb-8 min-w-[300px]">
               <p className="mb-4 text-white text-2xl">Roadmap</p>
@@ -114,7 +116,6 @@ export default function Home({
           )}
 
           <div className="flex-1 mb-8">
-
             {/* Homepage CMS Content */}
             <DarkBox className="mb-8">
               <CmsBlock
