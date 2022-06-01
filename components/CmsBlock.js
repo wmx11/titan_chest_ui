@@ -1,21 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { TypographyStylesProvider } from '@mantine/core';
+import useCmsData from '../hooks/cms/useCmsData';
 
 function CmsBlock({ dataSet, block, provideStyles }) {
-  const [data, setData] = useState('');
-
-  useEffect(() => {
-    if (Array.isArray(dataSet)) {
-      const dataByBlock = dataSet.find(
-        ({ attributes: { block_name } }) => block_name === block
-      );
-
-      if (dataByBlock && dataByBlock.hasOwnProperty('attributes')) {
-        setData({ ...dataByBlock.attributes });
-      }
-    }
-  }, [dataSet, block]);
-
+  const { data } = useCmsData(dataSet, block);
+  
   const CmsContent = () =>
     data && (
       <div
