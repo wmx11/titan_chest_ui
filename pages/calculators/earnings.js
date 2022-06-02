@@ -108,12 +108,23 @@ function Index({ titano }) {
     futurePrice,
     futurePeriodType,
     futurePeriod,
+    titano,
   ]);
 
   return (
     <div>
       <Head>
         <title>Titano Earnings Calculator</title>
+
+        <meta
+          name="description"
+          content="Titano rebase earnings calculator. Find out how much you could earn by day/week/month/year!"
+        />
+
+        <meta
+          property="og:description"
+          content="Titano rebase earnings calculator. Find out how much you could earn by day/week/month/year!"
+        />
       </Head>
       <Layout>
         <Container>
