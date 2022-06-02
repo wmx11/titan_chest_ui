@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 export const Button = ({ href, children, className, type, onClick }) => {
-  const defaultClassName = `rounded-md px-4 py-2 ${className} disabled:cursor-not-allowed disabled:brightness-90`;
+  const defaultClassName = `rounded-md px-4 py-3 ${className} disabled:cursor-not-allowed disabled:brightness-90`;
 
   const ButtonType = href ? (
     <Link href={href}>
@@ -35,6 +35,27 @@ export const RedButton = (props) => {
 export const GreenButton = (props) => {
   return (
     <Button {...props} className="bg-teal-500 text-white hover:bg-teal-600">
+      {props.children}
+    </Button>
+  );
+};
+
+export const TitanoGreenButton = (props) => {
+  return (
+    <Button
+      {...props}
+      className={`bg-titano-green text-slate-800 transition shadow-lg shadow-titano-green/10 hover:shadow-titano-green/30 ${props.className}`}
+    >
+      {props.children}
+    </Button>
+  );
+};
+export const TitanoPinkButton = (props) => {
+  return (
+    <Button
+      {...props}
+      className={`bg-titano-pink text-white transition shadow-lg shadow-titano-pink/10 hover:shadow-titano-pink/30 ${props.className}`}
+    >
       {props.children}
     </Button>
   );
