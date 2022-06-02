@@ -30,7 +30,7 @@ function Index() {
         <Container>
           <Heading className="text-white">Calculators</Heading>
           <DarkBox>
-            <div className="flex">
+            <div className="flex flex-col md:flex-row flex-wrap">
               <Link href="/calculators/impact">
                 <a>
                   <NeonCardWrapper className="text-center">
