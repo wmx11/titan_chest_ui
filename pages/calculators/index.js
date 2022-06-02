@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { Cash } from 'tabler-icons-react';
+import { ReportMoney, AlertTriangle } from 'tabler-icons-react';
 import Container from '../../components/Container';
+import DarkBox from '../../components/DarkBox';
 import Heading from '../../components/Heading';
 import Layout from '../../components/Layouts/titanchest/Layout';
 import NeonCardWrapper from '../../components/NeonCardWrapper';
@@ -27,20 +28,31 @@ function Index() {
       </Head>
       <Layout>
         <Container>
-          <Heading className="text-white">Titan Chest Calculators</Heading>
-          <div className="flex">
-            <Link href="/calculators/impact">
-              <a>
-                <NeonCardWrapper className="text-center">
-                  <Cash size={25} color={styles.titanoGreen} />
-                  <NeonText>Price Impact</NeonText>
-                  <SmallText>
-                    Calculate the price impact of a transaction.
-                  </SmallText>
-                </NeonCardWrapper>
-              </a>
-            </Link>
-          </div>
+          <Heading className="text-white">Calculators</Heading>
+          <DarkBox>
+            <div className="flex">
+              <Link href="/calculators/impact">
+                <a>
+                  <NeonCardWrapper className="text-center">
+                    <AlertTriangle size={25} color={styles.titanoGreen} />
+                    <NeonText>Impact Calculator</NeonText>
+                    <SmallText>
+                      Potential price impact of a transaction
+                    </SmallText>
+                  </NeonCardWrapper>
+                </a>
+              </Link>
+              <Link href="/calculators/earnings">
+                <a>
+                  <NeonCardWrapper className="text-center">
+                    <ReportMoney size={25} color={styles.titanoGreen} />
+                    <NeonText>Earnings Calculator</NeonText>
+                    <SmallText>Earnings over time</SmallText>
+                  </NeonCardWrapper>
+                </a>
+              </Link>
+            </div>
+          </DarkBox>
         </Container>
       </Layout>
     </div>
