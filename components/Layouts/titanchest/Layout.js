@@ -27,6 +27,10 @@ function Layout({ children, viewportRef }) {
         <div className="p-60 bg-titano-pink h-80 w-80 rounded-full blur-3xl absolute opacity-10 top-[0%] right-[0%]"></div>
         <div className="p-60 bg-titano-pink h-80 w-80 rounded-full blur-3xl absolute opacity-10 bottom-[0%] right-[-100px]"></div>
         <div className="p-60 bg-titano-pink h-80 w-80 rounded-full blur-3xl absolute opacity-10 top-[-80px] left-[-100px]"></div>
+
+        <div className="p-80 bg-titano-green h-96 w-96 rounded-full blur-3xl absolute bottom-[25%] left-[-350px] opacity-10"></div>
+        <div className="p-80 bg-titano-pink h-96 w-96 rounded-full blur-3xl absolute bottom-[25%] right-[-350px] opacity-10"></div>
+
       </div>
     </div>
   );

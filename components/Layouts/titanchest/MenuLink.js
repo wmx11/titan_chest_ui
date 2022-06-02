@@ -20,8 +20,9 @@ const MenuLink = ({
     <Link href={href}>
       <a>
         <li
-          className={`mb-2 px-4 py-3 hover:bg-slate-800 rounded-md text-slate-100 flex items-center ${
-            router.pathname === href && 'bg-slate-700'
+          className={`mb-2 px-4 py-3 rounded-md text-slate-100 flex items-center border-transparent hover:bg-titano-green/5 hover:border-titano-green border hover:shadow-md hover:shadow-titano-green/30 transition ${
+            router.pathname === href &&
+            'shadow-md shadow-titano-green/30 border-titano-green bg-titano-green/5'
           }`}
         >
           {Icon && <Icon className="h-6 w-6 md:h-4 md:w-4 md:mr-3" />}

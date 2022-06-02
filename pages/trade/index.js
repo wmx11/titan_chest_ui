@@ -40,13 +40,15 @@ function Index({ cmsContent }) {
           </div>
 
           <div className="flex-1 min-w-[300px]">
-            <DarkBox>
-              <CmsBlock
-                dataSet={cmsContent}
-                block="trade_content"
-                provideStyles={true}
-              />
-            </DarkBox>
+            {cmsContent?.length > 0 && (
+              <DarkBox>
+                <CmsBlock
+                  dataSet={cmsContent}
+                  block="trade_content"
+                  provideStyles={true}
+                />
+              </DarkBox>
+            )}
           </div>
         </Container>
       </Layout>

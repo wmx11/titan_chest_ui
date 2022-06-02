@@ -103,7 +103,7 @@ export default function Home({
         )}
 
         <Container className="flex flex-col flex-wrap justify-between md:flex-row gap-x-8">
-          {cmsRoadmap.length > 0 && (
+          {cmsRoadmap && (
             <DarkBox className="flex-1 mb-8 min-w-[300px]">
               <p className="mb-4 text-white text-2xl">Roadmap</p>
               <CmsBlock
@@ -117,13 +117,15 @@ export default function Home({
 
           <div className="flex-1 mb-8">
             {/* Homepage CMS Content */}
-            <DarkBox className="mb-8">
-              <CmsBlock
-                dataSet={cmsContent}
-                block="home_disclaimer"
-                provideStyles={true}
-              />
-            </DarkBox>
+            {cmsContent && (
+              <DarkBox className="mb-8">
+                <CmsBlock
+                  dataSet={cmsContent}
+                  block="home_disclaimer"
+                  provideStyles={true}
+                />
+              </DarkBox>
+            )}
 
             {/* Crypto Heat Map */}
             <DarkBox>

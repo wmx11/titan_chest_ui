@@ -1,10 +1,16 @@
-import { Divider, NumberInput, Select } from '@mantine/core';
+import { Divider } from '@mantine/core';
 import Head from 'next/head';
 import React, { useCallback, useEffect, useState } from 'react';
 import CmsBlock from '../../components/CmsBlock';
 import Container from '../../components/Container';
 import DarkBox from '../../components/DarkBox';
 import Heading from '../../components/Heading';
+import NumberInput from '../../components/Layouts/titanchest/Inputs/NumberInput';
+import SelectInput from '../../components/Layouts/titanchest/Inputs/Select';
+import {
+  formatCurrency,
+  parseDollar,
+} from '../../components/Layouts/titanchest/Inputs/utils';
 import Layout from '../../components/Layouts/titanchest/Layout';
 import NeonCardWrapper from '../../components/NeonCardWrapper';
 import NeonText from '../../components/NeonText';
@@ -12,6 +18,8 @@ import SmallText from '../../components/SmallText';
 import { getCmsContent, getStatsList } from '../../utils/getters';
 import toCurrency from '../../utils/toCurrency';
 import toPercentage from '../../utils/toPercentage';
+import titanoConfig from '../../config/titano';
+import { InfoCircle } from 'tabler-icons-react';
 
 function Index({ titano, cmsContent }) {
   const [currentData, setCurrentData] = useState();
@@ -127,87 +135,50 @@ function Index({ titano, cmsContent }) {
       <Layout>
         <Container>
           <Heading className="text-white">Price Impact Calculator</Heading>
-
-          <div className="flex flex-col md:flex-row md:flex-wrap">
-            <div className="flex-1 md:mr-4 md:min-w-[320px] md:mb-8">
+          <div className="flex flex-col md:flex-row md:flex-wrap gap-x-4 gap-y-4">
+            <div className="flex-1 md:min-w-[320px]">
               <DarkBox className="text-white">
                 <div className="mb-4">
-                  <Select
-                    classNames={{
-                      input:
-                        'p-5 rounded-md bg-slate-800/90 text-white border border-transparent focus:border-titano-green',
-                      dropdown: 'bg-slate-800/90 backdrop-blur-sm border-none',
-                      item: 'text-white',
-                      hovered: 'bg-slate-700/90',
-                      selected: 'bg-slate-600/90',
-                    }}
+                  <SelectInput
                     label="I want to"
                     value={type}
                     onChange={setType}
-                    variant="unstyled"
                     data={[
                       { value: 'sell', label: 'Sell' },
                       { value: 'buy', label: 'Buy' },
                     ]}
-                    styles={{
-                      label: { color: '#fff' },
-                    }}
                   />
                 </div>
-                <div className="mb-4">
-                  <NumberInput
-                    value={amount}
-                    classNames={{
-                      input:
-                        'p-5 rounded-md bg-slate-800/90 text-white border border-transparent focus:border-titano-green',
-                      label: 'text-white',
-                    }}
-                    variant="unstyled"
-                    label="Amount"
-                    onChange={setAmount}
-                    hideControls
-                    parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-                    formatter={(value) =>
-                      !Number.isNaN(parseFloat(value))
-                        ? `${currency === 'usd' ? '$ ' : ''}${value}`.replace(
-                            /\B(?=(\d{3})+(?!\d))/g,
-                            ','
-                          )
-                        : `${currency === 'usd' ? '$ ' : ''}`
-                    }
-                  />
-                </div>
-                <div>
-                  <Select
-                    value={currency}
-                    onChange={setCurrency}
-                    label="Using Currency"
-                    classNames={{
-                      input:
-                        'p-5 rounded-md bg-slate-800/90 text-white border border-transparent focus:border-titano-green',
-                      dropdown: 'bg-slate-800/90 backdrop-blur-sm border-none',
-                      item: 'text-white',
-                      hovered: 'bg-slate-700/90',
-                      selected: 'bg-slate-600/90',
-                      label: 'text-white',
-                    }}
-                    data={[
-                      { value: 'titano', label: 'Titano' },
-                      { value: 'usd', label: 'USD' },
-                    ]}
-                  />
+                <div className="mb-4 flex gap-x-4">
+                  <div className="flex-1">
+                    <NumberInput
+                      value={amount}
+                      label="Amount"
+                      onChange={setAmount}
+                      parser={parseDollar}
+                      formatter={(value) => formatCurrency(value, currency)}
+                    />
+                  </div>
+                  <div className="flex-1">
+                    <SelectInput
+                      label="Using Currency"
+                      value={currency}
+                      onChange={setCurrency}
+                      data={[
+                        { value: 'titano', label: 'Titano' },
+                        { value: 'usd', label: 'USD' },
+                      ]}
+                    />
+                  </div>
                 </div>
               </DarkBox>
-
-              <div className="mt-8">
-                {results && (
-                  <>
+            </div>
+            <div className="flex-1 md:min-w-[320px]">
+              <div>
+                {results ? (
+                  <DarkBox>
                     <p className="text-white text-2xl mb-4">Results</p>
                     <DarkBox className="text-white space-y-4">
-                      <p>
-                        <em>Impact results</em>
-                      </p>
-
                       <p>
                         <strong>Price Impact:</strong> {results.impact}%
                       </p>
@@ -279,10 +250,13 @@ function Index({ titano, cmsContent }) {
                           Tax:
                         </strong>{' '}
                         {type === 'sell'
-                          ? (results.received * (1 - 0.18)).toLocaleString()
+                          ? (
+                              results.received *
+                              (1 - titanoConfig.sellTax)
+                            ).toLocaleString()
                           : (
                               results.received *
-                              (1 - 0.13)
+                              (1 - titanoConfig.buyTax)
                             ).toLocaleString()}{' '}
                         {type === 'sell' ? 'BNB' : 'Titano'}
                       </p>
@@ -303,31 +277,44 @@ function Index({ titano, cmsContent }) {
                           ? toCurrency(
                               results.received *
                                 currentData.pair_price *
-                                (1 - 0.18)
+                                (1 - titanoConfig.sellTax)
                             )
                           : toCurrency(
-                              results.received * results.price * (1 - 0.13)
+                              results.received *
+                                results.price *
+                                (1 - titanoConfig.buyTax)
                             )}
                       </p>
                     </DarkBox>
-                  </>
-                )}
-                {cmsContent && (
-                  <DarkBox className="mt-8">
-                    <CmsBlock
-                      dataSet={cmsContent}
-                      block="price_impact_disclaimer"
-                      provideStyles={true}
-                    />
+                  </DarkBox>
+                ) : (
+                  <DarkBox className="flex items-center justify-center text-white">
+                    <InfoCircle size={20} className="mr-2" /> Change the
+                    calculator values to see the results
                   </DarkBox>
                 )}
               </div>
             </div>
+          </div>
+        </Container>
 
-            <div className="flex-1 mt-8 md:mt-0">
-              <Heading className="text-white">Current Market Data</Heading>
+        <Container>
+          <div className="flex flex-col md:flex-row flex-wrap gap-x-4 gap-y-4">
+            <div className="flex-1 min-w-[315px]">
+              {cmsContent && (
+                <DarkBox>
+                  <CmsBlock
+                    dataSet={cmsContent}
+                    block="price_impact_disclaimer"
+                    provideStyles={true}
+                  />
+                </DarkBox>
+              )}
+            </div>
+            <div className="flex-1">
               <DarkBox>
-                <div className="flex flex-wrap">
+                <Heading className="text-white">Current Market Data</Heading>
+                <div className="flex flex-wrap items-center">
                   {currentData && (
                     <>
                       <NeonCardWrapper>
