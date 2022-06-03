@@ -3,7 +3,8 @@ import {
   HomeIcon,
   ChartBarIcon,
   CurrencyDollarIcon,
-  CalculatorIcon
+  CalculatorIcon,
+  NewspaperIcon
 } from '@heroicons/react/solid';
 import { Burger } from '@mantine/core';
 import MenuLink from './MenuLink';
@@ -16,6 +17,9 @@ function MenuLinksGroup({ isOpen, onBurgerClick, isDrawer }) {
     <div className={`${!isDrawer && 'flex justify-between w-full md:block'}`}>
       <MenuLink href="/" Icon={HomeIcon}>
         <MenuLinkTitle>Home</MenuLinkTitle>
+      </MenuLink>
+      <MenuLink href="/announcements" Icon={NewspaperIcon}>
+        <MenuLinkTitle>Announcements</MenuLinkTitle>
       </MenuLink>
       <MenuLink href="/trading-chart" Icon={ChartBarIcon}>
         <MenuLinkTitle>Trading Chart</MenuLinkTitle>
