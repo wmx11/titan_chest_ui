@@ -6,13 +6,13 @@ import NeonText from './NeonText';
 import SmallText from './SmallText';
 
 function CmsRoadmap({ dataSet, block }) {
-  const { data } = useCmsData(dataSet, block);
+  const { data } = useCmsData(dataSet, block, true);
 
   if (!data) {
     return;
   }
 
-  const cmsData = data.data.data
+  const cmsData = data
     .filter((item) => item.enabled && item)
     .sort((a, b) => a.position > b.position);
 
@@ -26,9 +26,7 @@ function CmsRoadmap({ dataSet, block }) {
       color="grape"
     >
       {cmsData &&
-        cmsData.map(({ title, description, completed }, index) => {
-          const sanitizedDescription = description.replaceAll('\\n', '');
-          
+        cmsData.map(({ title, content, completed }, index) => {
           return (
             <Timeline.Item
               key={`${title}_${index}`}
@@ -37,7 +35,7 @@ function CmsRoadmap({ dataSet, block }) {
             >
               <NeonText>{title}</NeonText>
               <TypographyStylesProvider>
-                <SmallText html={sanitizedDescription} />
+                <SmallText html={content} />
               </TypographyStylesProvider>
             </Timeline.Item>
           );
