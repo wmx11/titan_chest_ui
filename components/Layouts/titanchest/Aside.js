@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer } from '@mantine/core';
+import { Drawer, ScrollArea } from '@mantine/core';
 import MenuLinksGroup from './MenuLinksGroup';
 import { BrandCodesandbox } from 'tabler-icons-react';
 
@@ -33,10 +33,12 @@ function Aside() {
             size="50%"
             classNames={{
               drawer: 'backdrop-blur-md bg-slate-900/60 px-2',
-              closeButton: 'hidden',
+              closeButton: 'text-white mt-2 mr-1',
             }}
           >
-            <MenuLinksGroup isDrawer={true} />
+            <ScrollArea style={{ height: '100%', width: '100%' }}>
+              <MenuLinksGroup isDrawer={true} />
+            </ScrollArea>
           </Drawer>
         </ul>
       </div>
