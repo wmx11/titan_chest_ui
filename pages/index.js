@@ -14,12 +14,15 @@ import { getCmsContent, getStatsList } from '../utils/getters';
 import CmsBlock from '../components/CmsBlock';
 import DarkBox from '../components/DarkBox';
 import CmsRoadmap from '../components/CmsRoadmap';
+import { format } from 'date-fns';
+import DarkNotification from '../components/DarkNotification';
 
 export default function Home({
   titano,
   titanoLastDay,
   cmsContent,
   cmsRoadmap,
+  cmsTodayAnnouncements,
 }) {
   const [titanoData, setTitanoData] = useState('');
   const chartContainerRef = useRef();
@@ -62,6 +65,13 @@ export default function Home({
       </Head>
       <Layout viewportRef={viewport}>
         <Container>
+          <DarkNotification
+            data={cmsTodayAnnouncements}
+            text="We have some new announcements!"
+            href="/announcements"
+            useStorage={true}
+            instantOpen={true}
+          />
           <DarkBox>
             {titanoData ? (
               <MarketDataGroup
@@ -162,6 +172,13 @@ export const getServerSideProps = async () => {
     'roadmaps?filters[block_name][$eq]=home_roadmap&filters[enabled][$eq]=true',
     true
   );
+  const cmsTodayAnnouncements = await getCmsContent(
+    `announcements?filters[publishedAt][$gte]=${format(
+      new Date(),
+      'yyyy-MM-dd'
+    )}&filters[enabled][$eq]=true`,
+    true
+  );
 
   return {
     props: {
@@ -169,6 +186,7 @@ export const getServerSideProps = async () => {
       titanoLastDay,
       cmsContent,
       cmsRoadmap,
+      cmsTodayAnnouncements,
     },
   };
 };
