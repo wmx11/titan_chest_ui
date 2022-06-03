@@ -14,13 +14,22 @@ function Index({ cmsContent }) {
     if (cmsContent) {
       setCmsData(cmsContent);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
       <Head>
         <title>Titano Announcements and News</title>
+        <meta
+          name="description"
+          content="Titano related announcements and latest news."
+        />
+
+        <meta
+          property="og:description"
+          content="Titano related announcements and latest news."
+        />
       </Head>
       <Layout>
         <Container>

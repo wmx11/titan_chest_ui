@@ -17,6 +17,16 @@ function Announcement() {
     <div>
       <Head>
         <title>{data && data.title}</title>
+
+        <meta
+          name="description"
+          content={data && data.summary}
+        />
+
+        <meta
+          property="og:description"
+          content={data && data.summary}
+        />
       </Head>
       <Layout>
         <Container>
