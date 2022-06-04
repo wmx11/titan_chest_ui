@@ -76,6 +76,14 @@ export const statsTemplate = [
       'Displays the amount of Titano tokens in the burn wallet. Please keep in mind that tokens inside the burn wallet are also receiving rebases.',
   },
   {
+    entry: 'circulating_supply',
+    compute: 'total_supply,burned_tokens,circulating_supply',
+    name: 'Circulating Supply',
+    currency: false,
+    tooltip:
+      'Displays the amount of Titano tokens in circulation (Excludes Burned Tokens). The value might decrease if Titano tokens are being burned which can indicate deflation. A 24h % higher than 2% indicates deflation.',
+  },
+  {
     entry: false,
     name: 'Crypto Market Sentiment',
     value: (data) => {
