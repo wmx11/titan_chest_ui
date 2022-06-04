@@ -53,7 +53,12 @@ function Index({ cmsContent }) {
 
 export default Index;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async ({ res }) => {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59'
+  );
+
   const cmsContent = await getCmsContent(
     'announcements?filters[enabled][$eq]=true',
     true

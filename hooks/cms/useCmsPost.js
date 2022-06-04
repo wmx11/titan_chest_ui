@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getCmsContent } from '../../utils/getters';
 
-const useCmsPost = (collection, slug) => {
+const useCmsPost = (content) => {
   const [state, setState] = useState();
 
-  const setCmsContent = async () => {
+  const setCmsContent = () => {
     try {
-      const content = await getCmsContent(
-        `${collection}?filters[slug][$eq]=${slug}&filters[enabled][$eq]=true`,
-        false
-      );
-
       if (content.length) {
         const data = content.map((item) => item.attributes)[0];
         setState(data);
@@ -25,11 +19,11 @@ const useCmsPost = (collection, slug) => {
 
   useEffect(() => {
     setCmsContent();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const data = state;
-  return { data, slug };
+  return { data };
 };
 
 export default useCmsPost;
