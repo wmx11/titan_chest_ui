@@ -81,7 +81,7 @@ export const statsTemplate = [
     name: 'Circulating Supply',
     currency: false,
     tooltip:
-      'Displays the amount of Titano tokens in circulation (Excludes Burned Tokens). The value might decrease if Titano tokens are being burned which can indicate deflation. A 24h % higher than 2% indicates deflation.',
+      'Displays the amount of Titano tokens in circulation (Excludes Burned Tokens). The value might decrease if Titano tokens are being burned which can indicate deflation. A 24h % lower than 2% indicates deflation.',
   },
   {
     entry: false,
