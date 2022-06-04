@@ -77,7 +77,7 @@ export const statsTemplate = [
   },
   {
     entry: 'circulating_supply',
-    compute: 'total_supply,burned_tokens,circulating_supply',
+    compute: 'marketcap,price,burned_tokens,circulating_supply',
     name: 'Circulating Supply',
     currency: false,
     tooltip:
