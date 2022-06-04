@@ -28,9 +28,9 @@ function StatsTab({ name, value, dayChange, tooltip, type, onChartSelect }) {
                   } flex items-center`}
                 >
                   {dayChange > 0 ? (
-                    <TrendingUpIcon className="h-3 w-3 mr-1" />
+                    <TrendingUpIcon className="h-4 w-4 mr-1" />
                   ) : (
-                    <TrendingDownIcon className="h-3 w-3 mr-1" />
+                    <TrendingDownIcon className="h-4 w-4 mr-1" />
                   )}
                   {dayChange.toFixed(2)}%
                 </strong>
