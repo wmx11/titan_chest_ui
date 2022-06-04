@@ -14,7 +14,7 @@ function CmsRoadmap({ dataSet, block }) {
 
   const cmsData = data
     .filter((item) => item.enabled && item)
-    .sort((a, b) => a.position > b.position);
+    .sort((a, b) => a.position - b.position);
 
   const completedItems = cmsData.filter((item) => item.completed).length;
 

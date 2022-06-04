@@ -1,3 +1,4 @@
+import { isBefore } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -12,7 +13,16 @@ function Index({ cmsContent }) {
 
   useEffect(() => {
     if (cmsContent) {
-      setCmsData(cmsContent);
+      setCmsData(
+        cmsContent.sort((a, b) =>
+          isBefore(
+            new Date(a.attributes.publishedAt),
+            new Date(b.attributes.publishedAt)
+          )
+            ? 1
+            : -1
+        )
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
