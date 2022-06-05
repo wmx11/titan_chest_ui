@@ -29,7 +29,10 @@ export default function Home({
   const viewport = useRef();
 
   useSWR('titano', async () => {
-    const data = await getStatsList('Titano?compute=total_supply', false);
+    const data = await getStatsList(
+      'Titano?compute=total_supply,circulating_supply',
+      false
+    );
     const {
       data: { data: fearData },
     } = await axios('https://api.alternative.me/fng/');
@@ -159,9 +162,12 @@ export default function Home({
 }
 
 export const getServerSideProps = async () => {
-  const titano = await getStatsList('Titano?compute=total_supply', true);
+  const titano = await getStatsList(
+    'Titano?compute=total_supply,circulating_supply',
+    true
+  );
   const titanoLastDay = await getStatsList(
-    'Titano?last_day=true&compute=total_supply',
+    'Titano?last_day=true&compute=total_supply,circulating_supply',
     true
   );
   const cmsContent = await getCmsContent(

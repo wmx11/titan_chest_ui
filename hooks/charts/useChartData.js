@@ -14,11 +14,21 @@ function useChartData(depth = 180) {
 
   const execute = (chartRef, viewport) => (type, name) => {
     const isComputeType = type.includes(',');
+
+    const types = type.split(',');
+
     const chartType = isComputeType
       ? type.split(',')[type.split(',').length - 1]
       : type;
 
-    getStatsList(`Titano?select=${type},created_at&limit=${depth}`, false)
+    const selectType = isComputeType ? types.pop() && types : type;
+
+    getStatsList(
+      `Titano?select=${selectType},created_at${
+        isComputeType ? `&compute=${chartType}` : ''
+      }&limit=${depth}`,
+      false
+    )
       .then((response) => {
         response &&
           setLabels(
