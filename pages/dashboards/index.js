@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { Flame } from 'tabler-icons-react';
+import { Ballon, Flame } from 'tabler-icons-react';
 import Container from '../../components/Container';
 import DarkCard from '../../components/DarkCard';
 import Heading from '../../components/Heading';
@@ -38,6 +38,31 @@ function Index() {
                         <Flame className="animate-pulse" />
                       </NeonText>
                       <NeonText>Burn Tracker</NeonText>
+                      <SmallText>Track the progress of token burns</SmallText>
+                    </NeonCardWrapper>
+                  }
+                  Body={
+                    <>
+                      <p>Track latest Titano token burns.</p>
+                      <strong>
+                        Please, keep in mind that the burn wallet is also
+                        receiving rebases and it grows by 1.92% every 24 hours.
+                      </strong>
+                      <p>Data is updated every minute.</p>
+                    </>
+                  }
+                />
+              </a>
+            </Link>
+            <Link href="/dashboards/inflation-tracker">
+              <a className="md:w-[49%]">
+                <DarkCard
+                  Head={
+                    <NeonCardWrapper className="bg-titano-pink/5 flex-grow">
+                      <NeonText>
+                        <Ballon className="animate-bounce" />
+                      </NeonText>
+                      <NeonText>Inflation Tracker</NeonText>
                       <SmallText>Track the progress of token burns</SmallText>
                     </NeonCardWrapper>
                   }

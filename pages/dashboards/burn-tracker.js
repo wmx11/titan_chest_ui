@@ -8,6 +8,7 @@ import CmsBlock from '../../components/CmsBlock';
 import Container from '../../components/Container';
 import DarkBox from '../../components/DarkBox';
 import DarkTable from '../../components/DarkTable';
+import GoBack from '../../components/GoBack';
 import Heading from '../../components/Heading';
 import Layout from '../../components/Layouts/titanchest/Layout';
 import NeonText from '../../components/NeonText';
@@ -101,92 +102,95 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
         />
       </Head>
       <Layout>
-        {titanoData && burnStats ? (
-          <Container>
-            <Heading className="text-white flex items-center gap-x-2">
-              <NeonText className="animate-pulse">
-                <Flame size={25} />
-              </NeonText>
-              Burn Tracker
-              <NeonText className="animate-pulse">
-                <Flame size={25} />
-              </NeonText>
-            </Heading>
-            <DarkBox className="flex gap-4 text-center mb-4 flex-wrap">
-              <DarkBox className="w-full md:max-w-[320px]">
-                <NeonText className="!text-3xl mb-4">
-                  {titanoData.burned_tokens.toLocaleString()}
+        <Container>
+          <GoBack />
+          {titanoData && burnStats ? (
+            <>
+              <Heading className="text-white flex items-center gap-x-2">
+                <NeonText className="animate-pulse">
+                  <Flame size={25} />
                 </NeonText>
-                <NeonText className="!text-sm">Total Burned</NeonText>
+                Burn Tracker
+                <NeonText className="animate-pulse">
+                  <Flame size={25} />
+                </NeonText>
+              </Heading>
+              <DarkBox className="flex gap-4 text-center mb-4 flex-wrap">
+                <DarkBox className="w-full md:max-w-[320px]">
+                  <NeonText className="!text-3xl mb-4">
+                    {titanoData.burned_tokens.toLocaleString()}
+                  </NeonText>
+                  <NeonText className="!text-sm">Total Burned</NeonText>
+                </DarkBox>
+                <DarkBox className="w-full md:max-w-[320px]">
+                  <NeonText className="!text-3xl mb-4">
+                    {toCurrency(titanoData.burned_tokens * titanoData.price)}
+                  </NeonText>
+                  <NeonText className="!text-sm">
+                    Total Burned USD Value
+                  </NeonText>
+                </DarkBox>
+                <DarkBox className="w-full md:max-w-[320px]">
+                  <NeonText className="!text-3xl mb-4">
+                    {burnStats.burnedToday.toLocaleString()}
+                  </NeonText>
+                  <NeonText className="!text-sm">Tokens Burned Today</NeonText>
+                </DarkBox>
+                <DarkBox className="w-full md:max-w-[320px]">
+                  <NeonText className="!text-3xl mb-4">
+                    {toCurrency(burnStats.valueToday)}
+                  </NeonText>
+                  <NeonText className="!text-sm">
+                    Tokens Burned Today USD Value
+                  </NeonText>
+                </DarkBox>
+                <DarkBox className="w-full md:max-w-[320px]">
+                  <NeonText className="!text-3xl mb-4">
+                    {(
+                      (titanoData.burned_tokens /
+                        titanoLastDayData.burned_tokens) *
+                        100 -
+                      100
+                    ).toFixed(2)}
+                    %
+                  </NeonText>
+                  <NeonText className="!text-sm">24 Hour % Increase</NeonText>
+                </DarkBox>
+                <DarkBox className="w-full md:max-w-[320px]">
+                  <NeonText className="!text-3xl mb-4">
+                    {(
+                      (titanoData.burned_tokens /
+                        (titanoData.marketcap / titanoData.price)) *
+                      100
+                    ).toFixed(2)}
+                    %
+                  </NeonText>
+                  <NeonText className="!text-sm">
+                    Total % Of Total Supply
+                  </NeonText>
+                </DarkBox>
+                <DarkBox className="w-full md:max-w-[320px]">
+                  <NeonText className="!text-3xl mb-4">
+                    {burnStats.lastBurn}
+                  </NeonText>
+                  <NeonText className="!text-sm">Last Burn</NeonText>
+                </DarkBox>
               </DarkBox>
-              <DarkBox className="w-full md:max-w-[320px]">
-                <NeonText className="!text-3xl mb-4">
-                  {toCurrency(titanoData.burned_tokens * titanoData.price)}
-                </NeonText>
-                <NeonText className="!text-sm">Total Burned USD Value</NeonText>
-              </DarkBox>
-              <DarkBox className="w-full md:max-w-[320px]">
-                <NeonText className="!text-3xl mb-4">
-                  {burnStats.burnedToday.toLocaleString()}
-                </NeonText>
-                <NeonText className="!text-sm">Tokens Burned Today</NeonText>
-              </DarkBox>
-              <DarkBox className="w-full md:max-w-[320px]">
-                <NeonText className="!text-3xl mb-4">
-                  {toCurrency(burnStats.valueToday)}
-                </NeonText>
-                <NeonText className="!text-sm">
-                  Tokens Burned Today USD Value
-                </NeonText>
-              </DarkBox>
-              <DarkBox className="w-full md:max-w-[320px]">
-                <NeonText className="!text-3xl mb-4">
-                  {(
-                    (titanoData.burned_tokens /
-                      titanoLastDayData.burned_tokens) *
-                      100 -
-                    100
-                  ).toFixed(2)}
-                  %
-                </NeonText>
-                <NeonText className="!text-sm">24 Hour % Increase</NeonText>
-              </DarkBox>
-              <DarkBox className="w-full md:max-w-[320px]">
-                <NeonText className="!text-3xl mb-4">
-                  {(
-                    (titanoData.burned_tokens /
-                      (titanoData.marketcap / titanoData.price)) *
-                    100
-                  ).toFixed(2)}
-                  %
-                </NeonText>
-                <NeonText className="!text-sm">
-                  Total % Of Total Supply
-                </NeonText>
-              </DarkBox>
-              <DarkBox className="w-full md:max-w-[320px]">
-                <NeonText className="!text-3xl mb-4">
-                  {burnStats.lastBurn}
-                </NeonText>
-                <NeonText className="!text-sm">Last Burn</NeonText>
-              </DarkBox>
-            </DarkBox>
 
-            <DarkBox className="text-white">
-              <CmsBlock
-                dataSet={cmsContent}
-                block="burn_tracker"
-                provideStyles
-              />
-            </DarkBox>
-          </Container>
-        ) : (
-          <Container>
+              <DarkBox className="text-white">
+                <CmsBlock
+                  dataSet={cmsContent}
+                  block="burn_tracker"
+                  provideStyles
+                />
+              </DarkBox>
+            </>
+          ) : (
             <DarkBox className="flex flex-col justify-center items-center p-10">
               <Loader color="green" />
             </DarkBox>
-          </Container>
-        )}
+          )}
+        </Container>
         <Container>
           <DarkBox>
             <p className="text-white">Burn History</p>
