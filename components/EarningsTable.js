@@ -9,7 +9,7 @@ function EarningsTable({ data, price }) {
   }
 
   const rowStyles =
-    'mb-2 flex-col gap-y-2 md:gap-y-0 md:flex-row flex bg-slate-900/50 p-3 rounded-md hover:border-titano-green border border-transparent hover:shadow-md hover:shadow-titano-green/30 hover:bg-titano-green/5 transition';
+    'mb-2 flex-col gap-y-2 md:gap-y-0 md:flex-row flex bg-slate-900/50 p-3 rounded-md hover:border-titano-green border border-slate-800/80 hover:shadow-md hover:shadow-titano-green/30 hover:bg-titano-green/5 transition';
 
   const {
     initial,
@@ -30,7 +30,7 @@ function EarningsTable({ data, price }) {
   return (
     data && (
       <DarkBox>
-        <div className="mb-4 hidden md:flex bg-slate-900/50 p-3 rounded-md">
+        <div className="mb-4 hidden md:flex bg-slate-900/50 p-3 rounded-md border border-slate-800/80">
           <div className="w-[100%] max-w-[150px] mr-1"></div>
           <div className="w-[100%] max-w-[200px] mr-1">Titano</div>
           <div className="w-[100%] max-w-[200px] mr-1">USD</div>
