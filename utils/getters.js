@@ -104,9 +104,7 @@ export const getCmsContent = async (id = '', isServerSide) => {
 
 export const getTransactions = async (id = '', isServerSide) => {
   try {
-    const {
-      data: { data },
-    } = await axios({
+    const data = await axios({
       url: `${
         isServerSide
           ? process.env.TRANSACTION_WATCHER_URL
@@ -118,7 +116,11 @@ export const getTransactions = async (id = '', isServerSide) => {
       return null;
     }
 
-    return data;
+    if (isServerSide) {
+      return data.data.data;
+    }
+
+    return data.data;
   } catch (error) {
     console.log(error);
     return null;
