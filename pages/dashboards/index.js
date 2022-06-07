@@ -30,7 +30,7 @@ function Index() {
           <Heading className="text-white">Dashboards</Heading>
           <div className="flex items-center gap-3 flex-wrap">
             <Link href="/dashboards/burn-tracker">
-              <a className="w-[49%]">
+              <a className="md:w-[49%]">
                 <DarkCard
                   Head={
                     <NeonCardWrapper className="bg-titano-pink/5 flex-grow">
