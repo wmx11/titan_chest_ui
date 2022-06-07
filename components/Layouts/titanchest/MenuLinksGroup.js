@@ -4,32 +4,72 @@ import {
   ChartBarIcon,
   CurrencyDollarIcon,
   CalculatorIcon,
-  NewspaperIcon
+  NewspaperIcon,
 } from '@heroicons/react/solid';
 import { Burger } from '@mantine/core';
 import MenuLink from './MenuLink';
+import { Dashboard } from 'tabler-icons-react';
+import useSmallScreen from '../../../hooks/useSmallScreen';
 
 function MenuLinksGroup({ isOpen, onBurgerClick, isDrawer }) {
+  const { isSmallScreen } = useSmallScreen();
+
   const MenuLinkTitle = ({ children }) => (
     <p className={`${isDrawer ? 'ml-4' : 'hidden md:block'}`}>{children}</p>
   );
+
+  const links = [
+    {
+      title: 'Home',
+      href: '/',
+      icon: HomeIcon,
+    },
+    {
+      title: 'Announcements',
+      href: '/announcements',
+      icon: NewspaperIcon,
+    },
+    {
+      title: 'Trading Chart',
+      href: '/trading-chart',
+      icon: ChartBarIcon,
+    },
+    {
+      title: 'Buy & Sell Titano',
+      href: '/trade',
+      icon: CurrencyDollarIcon,
+    },
+    {
+      title: 'Calculators',
+      href: '/calculators',
+      icon: CalculatorIcon,
+    },
+    {
+      title: 'Dashboards',
+      href: '/dashboards',
+      icon: Dashboard,
+    },
+  ];
+
   return (
-    <div className={`${!isDrawer && 'flex justify-between w-full md:block'}`}>
-      <MenuLink href="/" Icon={HomeIcon}>
-        <MenuLinkTitle>Home</MenuLinkTitle>
-      </MenuLink>
-      <MenuLink href="/announcements" Icon={NewspaperIcon}>
-        <MenuLinkTitle>Announcements</MenuLinkTitle>
-      </MenuLink>
-      <MenuLink href="/trading-chart" Icon={ChartBarIcon}>
-        <MenuLinkTitle>Trading Chart</MenuLinkTitle>
-      </MenuLink>
-      <MenuLink href="/trade" Icon={CurrencyDollarIcon}>
-        <MenuLinkTitle>Buy & Sell Titano</MenuLinkTitle>
-      </MenuLink>
-      <MenuLink href="/calculators" Icon={CalculatorIcon}>
-        <MenuLinkTitle>Calculators</MenuLinkTitle>
-      </MenuLink>
+    <div
+      className={`${!isDrawer ? 'flex justify-between items-center w-full md:block' : ''}`}
+    >
+      {links &&
+        links.map((item, index) => {
+          if (!isDrawer && isSmallScreen && index > 4) {
+            return;
+          }
+          return (
+            <MenuLink
+              href={item.href}
+              Icon={item.icon}
+              key={`menu_link_${index}`}
+            >
+              <MenuLinkTitle>{item.title}</MenuLinkTitle>
+            </MenuLink>
+          );
+        })}
       {!isDrawer && (
         <MenuLink
           isBurger={true}

@@ -2,7 +2,9 @@ import axios from 'axios';
 import routes from '../config/routes';
 
 const getApiHost = (isServerSide = false) => {
-  return isServerSide ? process.env.HOST_API_INTERNAL : routes.titan_chest_axios;
+  return isServerSide
+    ? process.env.HOST_API_INTERNAL
+    : routes.titan_chest_axios;
 };
 
 /**
@@ -77,7 +79,11 @@ export const getCmsContent = async (id = '', isServerSide) => {
       }/${id}`,
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${isServerSide ? process.env.TITAN_CHEST_CMS_TOKEN : process.env.NEXT_PUBLIC_TITAN_CHEST_CMS_TOKEN}`,
+        Authorization: `Bearer ${
+          isServerSide
+            ? process.env.TITAN_CHEST_CMS_TOKEN
+            : process.env.NEXT_PUBLIC_TITAN_CHEST_CMS_TOKEN
+        }`,
       },
     });
 
@@ -90,6 +96,29 @@ export const getCmsContent = async (id = '', isServerSide) => {
     }
 
     return data.attributes;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getTransactions = async (id = '', isServerSide) => {
+  try {
+    const {
+      data: { data },
+    } = await axios({
+      url: `${
+        isServerSide
+          ? process.env.TRANSACTION_WATCHER_URL
+          : process.env.NEXT_PUBLIC_TRANSACTION_WATCHER_URL
+      }/${id}`,
+    });
+
+    if (!data) {
+      return null;
+    }
+
+    return data;
   } catch (error) {
     console.log(error);
     return null;

@@ -104,7 +104,7 @@ function RebaseEarningsTable({ data, price }) {
             Export <FileSpreadsheet size={30} className="ml-2" />
           </p>
         </div>
-        <div className="hidden mb-4 lg:flex bg-slate-900/50 p-3 rounded-md">
+        <div className="hidden mb-4 lg:flex bg-slate-900/50 p-3 rounded-md border border-slate-800/80">
           <div className="w-[100%] mr-1 max-w-[80px]">Day</div>
           <div className="w-[100%] mr-1 max-w-[120px]">Balance</div>
           <div className="w-[100%] mr-1 max-w-[120px]">Interest</div>
@@ -132,7 +132,7 @@ function RebaseEarningsTable({ data, price }) {
               <div
                 className={`${
                   price_usd_changeover ? 'bg-titano-pink/5' : ''
-                } mb-2 flex-col lg:flex-row flex bg-slate-900/50 p-3 rounded-md hover:border-titano-green border border-transparent hover:shadow-md hover:shadow-titano-green/30 hover:bg-titano-green/5 transition`}
+                } mb-2 flex-col lg:flex-row flex bg-slate-900/50 p-3 rounded-md hover:border-titano-green border border-slate-800/80 hover:shadow-md hover:shadow-titano-green/30 hover:bg-titano-green/5 transition`}
                 key={`rebase_${index}`}
               >
                 <div className="mb-2 lg:mb-0 w-[100%] mr-1 lg:max-w-[80px]">
