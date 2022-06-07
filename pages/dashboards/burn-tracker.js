@@ -58,7 +58,7 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
     'titano_burns',
     async () => {
       const data = await getStatsList('Titano', false);
-      const burns = await getTransactions('get/burns?limit=100', false);
+      const burns = await getTransactions('', false);
 
       const response = {
         ...data[0],
@@ -199,6 +199,7 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                 data={[
                   {
                     head: [
+                      { width: 25, name: 'No.' },
                       { width: 120, name: 'Txn Hash' },
                       { width: 120, name: 'From' },
                       { width: 120, name: 'Amount' },
@@ -208,8 +209,12 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                     ],
                   },
                   {
-                    rows: burnsData.map((burnData) => ({
+                    rows: burnsData.map((burnData, index) => ({
                       row: [
+                        {
+                          value: index + 1,
+                          truncate: true,
+                        },
                         {
                           value: (
                             <a
