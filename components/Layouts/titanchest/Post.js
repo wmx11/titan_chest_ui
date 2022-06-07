@@ -44,10 +44,13 @@ function Post({ data, isSummary }) {
       <p className="text-white text-xs mt-2 mb-4">{datePublished}</p>
       <TypographyStylesProvider>
         {isSummary ? (
-          <p className="text-white text-sm break-words">{summary}</p>
+          <p className="text-white text-sm" style={{ wordBreak: 'break-word' }}>
+            {summary}
+          </p>
         ) : (
           <p
-            className="text-white text-md break-words"
+            className="text-white text-md"
+            style={{ wordBreak: 'break-word' }}
             dangerouslySetInnerHTML={{ __html: content }}
           ></p>
         )}
