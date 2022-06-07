@@ -15,6 +15,15 @@ function Index() {
     <div>
       <Head>
         <title>Titan Chest Dashboards</title>
+        <meta
+          name="description"
+          content="Titano dashboards for in-depth data and analysis."
+        />
+
+        <meta
+          property="og:description"
+          content="Titano dashboards for in-depth data and analysis."
+        />
       </Head>
       <Layout>
         <Container>

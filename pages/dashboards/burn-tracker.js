@@ -90,6 +90,15 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
     <div>
       <Head>
         <title>Titan Chest Burn Tracker</title>
+        <meta
+          name="description"
+          content="Titano burn tracker dashboard. Track all latest titano token burns!"
+        />
+
+        <meta
+          property="og:description"
+          content="Titano burn tracker dashboard. Track all latest titano token burns!"
+        />
       </Head>
       <Layout>
         {titanoData && burnStats ? (
