@@ -131,7 +131,7 @@ function RebaseEarningsTable({ data, price }) {
             ) => (
               <div
                 className={`${
-                  price_usd_changeover ? 'bg-titano-pink/5' : ''
+                  price_usd_changeover ? 'bg-titano-pink/10' : ''
                 } mb-2 flex-col lg:flex-row flex bg-slate-900/50 p-3 rounded-md hover:border-titano-green border border-slate-800/80 hover:shadow-md hover:shadow-titano-green/30 hover:bg-titano-green/5 transition`}
                 key={`rebase_${index}`}
               >
