@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { Ballon, Flame } from 'tabler-icons-react';
+import { ChartInfographic, Flame } from 'tabler-icons-react';
 import Container from '../../components/Container';
 import DarkCard from '../../components/DarkCard';
 import Heading from '../../components/Heading';
@@ -54,26 +54,25 @@ function Index() {
                 />
               </a>
             </Link>
-            <Link href="/dashboards/inflation-tracker">
+            <Link href="/dashboards/kpi-tracker">
               <a className="md:w-[49%]">
                 <DarkCard
                   Head={
                     <NeonCardWrapper className="bg-titano-pink/5 flex-grow">
                       <NeonText>
-                        <Ballon className="animate-bounce" />
+                        <ChartInfographic className="animate-pulse" />
                       </NeonText>
-                      <NeonText>Inflation Tracker</NeonText>
-                      <SmallText>Track the progress of token burns</SmallText>
+                      <NeonText>KPI Tracker</NeonText>
+                      <SmallText>Titano key performance indicators</SmallText>
                     </NeonCardWrapper>
                   }
                   Body={
                     <>
-                      <p>Track latest Titano token burns.</p>
+                      <p>Track Titano Key Performance Indicators.</p>
                       <strong>
-                        Please, keep in mind that the burn wallet is also
-                        receiving rebases and it grows by 1.92% every 24 hours.
+                        You can see the changes in Titano performance based on This, last week, and this month.
                       </strong>
-                      <p>Data is updated every minute.</p>
+                      <p>Compare data and the impact of major announcements/releases.</p>
                     </>
                   }
                 />
