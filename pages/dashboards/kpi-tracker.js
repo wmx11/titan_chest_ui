@@ -100,7 +100,7 @@ function InflationTracker({
   }, [milestones, toggles]);
 
   const StatsTab = ({ value, name, change }) => (
-    <DarkBox className="max-w-[190px] min-w-[180px] h-[120px] flex w-full flex-col items-center justify-center relative border border-titano-pink/40">
+    <DarkBox className="max-w-[190px] min-w-[180px] h-[120px] flex w-full flex-col items-center justify-center relative border !border-titano-pink/40">
       <NeonText className="!text-md mb-2 break-all">{value}</NeonText>
       <NeonText className="!text-xs">{name}</NeonText>
       {change && change !== Infinity && (
