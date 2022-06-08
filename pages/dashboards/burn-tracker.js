@@ -1,5 +1,6 @@
 import { Divider, Loader } from '@mantine/core';
-import { format, isToday } from 'date-fns';
+import { format, intervalToDuration, isToday } from 'date-fns';
+import { toDays } from 'duration-fns';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
@@ -138,7 +139,7 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                 </DarkBox>
                 <DarkBox className="w-full md:max-w-[320px]">
                   <NeonText className="!text-3xl mb-4">
-                    {toCurrency(burnStats.valueToday)}
+                    {toCurrency(burnStats.valueToday) || '$0'}
                   </NeonText>
                   <NeonText className="!text-sm">
                     Tokens Burned Today USD Value
@@ -258,10 +259,34 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                           truncate: true,
                         },
                         {
-                          value: format(
-                            new Date(burnData.created_at),
-                            'yyyy-MM-dd HH:mm:ss'
-                          ),
+                          value: (() => {
+                            const burnDate = burnData.created_at;
+                            const duration = toDays(
+                              intervalToDuration({
+                                start: new Date(burnDate),
+                                end: new Date(),
+                              })
+                            );
+                            return (
+                              <>
+                                <p>
+                                  {format(
+                                    new Date(burnData.created_at),
+                                    'yyyy-MM-dd HH:mm:ss'
+                                  )}
+                                </p>
+                                {duration > 0 && (
+                                  <p>
+                                    {Math.round(duration)}
+                                    {Math.round(duration) > 1
+                                      ? ' days '
+                                      : ' day '}
+                                    ago
+                                  </p>
+                                )}
+                              </>
+                            );
+                          })(),
                           truncate: true,
                         },
                       ],
