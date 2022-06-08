@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
-import { Flame } from 'tabler-icons-react';
+import { ChartInfographic, Flame } from 'tabler-icons-react';
 import Container from '../../components/Container';
 import DarkCard from '../../components/DarkCard';
 import Heading from '../../components/Heading';
@@ -49,6 +49,30 @@ function Index() {
                         receiving rebases and it grows by 1.92% every 24 hours.
                       </strong>
                       <p>Data is updated every minute.</p>
+                    </>
+                  }
+                />
+              </a>
+            </Link>
+            <Link href="/dashboards/kpi-tracker">
+              <a className="md:w-[49%]">
+                <DarkCard
+                  Head={
+                    <NeonCardWrapper className="bg-titano-pink/5 flex-grow">
+                      <NeonText>
+                        <ChartInfographic className="animate-pulse" />
+                      </NeonText>
+                      <NeonText>KPI Tracker</NeonText>
+                      <SmallText>Titano key performance indicators</SmallText>
+                    </NeonCardWrapper>
+                  }
+                  Body={
+                    <>
+                      <p>Track Titano Key Performance Indicators.</p>
+                      <strong>
+                        You can see the changes in Titano performance based on This, last week, and this month.
+                      </strong>
+                      <p>Compare data and the impact of major announcements/releases.</p>
                     </>
                   }
                 />
