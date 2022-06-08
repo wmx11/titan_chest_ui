@@ -222,7 +222,7 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
         </Container>
         <Container>
           <DarkBox>
-            <p className="text-white">Burn History</p>
+            <p className="text-white font-bold text-2xl">Burn History</p>
             <Divider className="my-4" />
             <p className="text-white mb-4">
               Showing the last <strong>100</strong> burns
@@ -303,7 +303,7 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                                     'yyyy-MM-dd HH:mm:ss'
                                   )}
                                 </p>
-                                {duration > 0 && (
+                                {Math.round(duration) > 0 && (
                                   <p>
                                     {Math.round(duration)}
                                     {Math.round(duration) > 1

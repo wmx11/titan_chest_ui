@@ -144,7 +144,7 @@ function InflationTracker({
             Titano Key Performance Indicators
           </Heading>
           {titanoToday && (
-            <div className="flex justify-end">
+            <div className="flex justify-start">
               <FundamentalsStatus dataSet={titanoToday} />
             </div>
           )}

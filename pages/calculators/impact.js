@@ -177,7 +177,7 @@ function Index({ titano, cmsContent }) {
               <div>
                 {results ? (
                   <DarkBox>
-                    <p className="text-white text-2xl mb-4">Results</p>
+                    <p className="text-white text-2xl font-bold mb-4">Results</p>
                     <DarkBox className="text-white space-y-4">
                       <p>
                         <strong>Price Impact:</strong> {results.impact}%

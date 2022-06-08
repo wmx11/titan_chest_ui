@@ -266,7 +266,7 @@ function Index({ titano }) {
 
         <Container>
           <DarkBox className="text-white">
-            <p>Rebase History</p>
+            <p className="text-2xl font-bold">Rebase History</p>
 
             <Divider className="my-4" />
 
