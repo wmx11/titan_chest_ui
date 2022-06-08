@@ -1,5 +1,8 @@
+import { intervalToDuration } from 'date-fns';
+import { toDays } from 'duration-fns';
 import toCurrency from '../toCurrency';
 import toPercentage from '../toPercentage';
+import titanoConfig from '../../config/titano';
 
 export const generateData = ({
   period,
@@ -11,6 +14,19 @@ export const generateData = ({
   state,
 }) => {
   const createDataset = (item, countChange) => {
+    const dates = date.split(' - ');
+
+    const days = toDays(
+      intervalToDuration({
+        start: new Date(dates[0]),
+        end: new Date(dates[1]),
+      })
+    );
+
+    const dailyInterest = titanoConfig.dailyInterest;
+
+    const inflation = Math.trunc(dailyInterest * days * 100);
+
     return [
       {
         name: 'Total Supply',
@@ -51,7 +67,7 @@ export const generateData = ({
       {
         name: 'Inflation : Burn Ratio',
         show: state.inflation,
-        value: `1.92% : ${Math.round(
+        value: `${inflation}% : ${Math.round(
           toPercentage(item.burned_tokens || 0, fromData.burned_tokens || 0) -
             100 ===
             Infinity
