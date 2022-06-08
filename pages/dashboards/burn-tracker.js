@@ -133,7 +133,7 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
               </DarkBox>
               <DarkBox className="w-full md:max-w-[320px]">
                 <NeonText className="!text-3xl mb-4">
-                  {toCurrency(burnStats.valueToday)}
+                  {toCurrency(burnStats.valueToday) || '$0'}
                 </NeonText>
                 <NeonText className="!text-sm">
                   Tokens Burned Today USD Value
