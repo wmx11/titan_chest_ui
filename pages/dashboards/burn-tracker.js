@@ -117,13 +117,21 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                 </NeonText>
               </Heading>
               <DarkBox className="flex gap-4 text-center mb-4 flex-wrap">
-                <DarkBox className="w-full md:max-w-[320px]">
+                <DarkBox
+                  withBorder
+                  withHover
+                  className="w-full md:max-w-[320px]"
+                >
                   <NeonText className="!text-3xl mb-4">
                     {titanoData.burned_tokens.toLocaleString()}
                   </NeonText>
                   <NeonText className="!text-sm">Total Burned</NeonText>
                 </DarkBox>
-                <DarkBox className="w-full md:max-w-[320px]">
+                <DarkBox
+                  withBorder
+                  withHover
+                  className="w-full md:max-w-[320px]"
+                >
                   <NeonText className="!text-3xl mb-4">
                     {toCurrency(titanoData.burned_tokens * titanoData.price)}
                   </NeonText>
@@ -131,13 +139,21 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                     Total Burned USD Value
                   </NeonText>
                 </DarkBox>
-                <DarkBox className="w-full md:max-w-[320px]">
+                <DarkBox
+                  withBorder
+                  withHover
+                  className="w-full md:max-w-[320px]"
+                >
                   <NeonText className="!text-3xl mb-4">
                     {burnStats.burnedToday.toLocaleString()}
                   </NeonText>
                   <NeonText className="!text-sm">Tokens Burned Today</NeonText>
                 </DarkBox>
-                <DarkBox className="w-full md:max-w-[320px]">
+                <DarkBox
+                  withBorder
+                  withHover
+                  className="w-full md:max-w-[320px]"
+                >
                   <NeonText className="!text-3xl mb-4">
                     {toCurrency(burnStats.valueToday) || '$0'}
                   </NeonText>
@@ -145,7 +161,11 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                     Tokens Burned Today USD Value
                   </NeonText>
                 </DarkBox>
-                <DarkBox className="w-full md:max-w-[320px]">
+                <DarkBox
+                  withBorder
+                  withHover
+                  className="w-full md:max-w-[320px]"
+                >
                   <NeonText className="!text-3xl mb-4">
                     {(
                       (titanoData.burned_tokens /
@@ -157,7 +177,11 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                   </NeonText>
                   <NeonText className="!text-sm">24 Hour % Increase</NeonText>
                 </DarkBox>
-                <DarkBox className="w-full md:max-w-[320px]">
+                <DarkBox
+                  withBorder
+                  withHover
+                  className="w-full md:max-w-[320px]"
+                >
                   <NeonText className="!text-3xl mb-4">
                     {(
                       (titanoData.burned_tokens /
@@ -170,7 +194,11 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
                     Total % Of Total Supply
                   </NeonText>
                 </DarkBox>
-                <DarkBox className="w-full md:max-w-[320px]">
+                <DarkBox
+                  withBorder
+                  withHover
+                  className="w-full md:max-w-[320px]"
+                >
                   <NeonText className="!text-3xl mb-4">
                     {burnStats.lastBurn}
                   </NeonText>

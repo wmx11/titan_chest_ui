@@ -5,7 +5,8 @@ function Accordion({ children }) {
   return (
     <AccordionComponent
       classNames={{
-        control: 'hover:bg-titano-pink/50 transition rounded-md',
+        item: 'hover:border-titano-green transition',
+        control: 'hover:bg-slate-900/80 transition rounded-md',
         label: 'text-white',
         icon: 'text-white',
       }}
