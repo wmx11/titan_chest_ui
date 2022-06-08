@@ -21,6 +21,7 @@ import {
 } from '../../utils/dates';
 import { getCmsContent, getStatsList } from '../../utils/getters';
 import { generateData } from '../../utils/kpi-tracker/generateData';
+import FundamentalsStatus from '../../components/Layouts/titanchest/FundamentalsStatus';
 
 function InflationTracker({
   titanoToday,
@@ -100,7 +101,11 @@ function InflationTracker({
   }, [milestones, toggles]);
 
   const StatsTab = ({ value, name, change }) => (
-    <DarkBox withBorder withHover className="max-w-[190px] min-w-[180px] h-[120px] flex w-full flex-col items-center justify-center relative">
+    <DarkBox
+      withBorder
+      withHover
+      className="max-w-[190px] min-w-[180px] h-[120px] flex w-full flex-col items-center justify-center relative"
+    >
       <NeonText className="!text-md mb-2 break-all">{value}</NeonText>
       <NeonText className="!text-xs">{name}</NeonText>
       {change && change !== 0 && change !== Infinity ? (
@@ -138,6 +143,11 @@ function InflationTracker({
           <Heading className="text-white">
             Titano Key Performance Indicators
           </Heading>
+          {titanoToday && (
+            <div className="flex justify-end">
+              <FundamentalsStatus dataSet={titanoToday} />
+            </div>
+          )}
           <div className="mb-4">
             <UseCaseFilter toggles={toggles} handleToggle={handleToggle} />
           </div>
