@@ -120,6 +120,15 @@ function InflationTracker({
     <div>
       <Head>
         <title>Titano key performance indicators dashboard</title>
+        <meta
+          name="description"
+          content="Titano key performance indicators dashboard. Track various Titano key indicators for a period of time and measure the impact of new releases, and announcements!"
+        />
+
+        <meta
+          property="og:description"
+          content="Titano key performance indicators dashboard. Track various Titano key indicators for a period of time and measure the impact of new releases, and announcements!"
+        />
       </Head>
       <Layout>
         <Container>
@@ -189,7 +198,7 @@ function InflationTracker({
                             >
                               <Link href={`/announcements/${slug}`}>
                                 <a>
-                                  <p className='text-titano-green'>{title}</p>
+                                  <p className="text-titano-green">{title}</p>
                                   <p className="text-xs">
                                     {formatDate(
                                       new Date(publishedAt),
