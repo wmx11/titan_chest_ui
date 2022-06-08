@@ -103,7 +103,7 @@ function InflationTracker({
     <DarkBox className="max-w-[190px] min-w-[180px] h-[120px] flex w-full flex-col items-center justify-center relative border !border-titano-pink/40">
       <NeonText className="!text-md mb-2 break-all">{value}</NeonText>
       <NeonText className="!text-xs">{name}</NeonText>
-      {change !== undefined && change !== Infinity && (
+      {(change !== undefined || change > 0) && change !== Infinity && (
         <div
           className={`absolute top-2 right-2 text-xs font-bold ${
             change > 0 ? 'text-titano-green' : 'text-titano-pink'
