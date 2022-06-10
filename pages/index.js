@@ -164,26 +164,26 @@ export default function Home({
 export const getStaticProps = async () => {
   const titano = await getStatsList(
     'Titano?compute=total_supply,circulating_supply',
-    true
+    false
   );
   const titanoLastDay = await getStatsList(
     'Titano?last_day=true&compute=total_supply,circulating_supply',
-    true
+    false
   );
   const cmsContent = await getCmsContent(
     'content-blocks?filters[block_name][$eq]=home_disclaimer&filters[block_name][$eq]=home_roadmap&filters[block_name][$eq]=home_heatmap&filters[enabled][$eq]=true',
-    true
+    false
   );
   const cmsRoadmap = await getCmsContent(
     'roadmaps?filters[block_name][$eq]=home_roadmap&filters[enabled][$eq]=true',
-    true
+    false
   );
   const cmsTodayAnnouncements = await getCmsContent(
     `announcements?filters[publishedAt][$gte]=${format(
       new Date(),
       'yyyy-MM-dd'
     )}&filters[enabled][$eq]=true`,
-    true
+    false
   );
 
   return {

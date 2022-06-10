@@ -363,7 +363,7 @@ export const getStaticProps = async () => {
   const titano = await getStatsList('Titano', false);
   const cmsContent = await getCmsContent(
     'content-blocks?filters[block_name][$eq]=price_impact_disclaimer&filters[enabled][$eq]=true',
-    true
+    false
   );
 
   return {

@@ -344,7 +344,7 @@ export const getStaticProps = async () => {
   const burns = await getTransactions('get/burns?limit=100', true);
   const cmsContent = await getCmsContent(
     'content-blocks?filters[block_name][$eq]=burn_tracker&filters[enabled][$eq]=true',
-    true
+    false
   );
 
   return {

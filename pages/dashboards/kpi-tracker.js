@@ -259,7 +259,7 @@ export const getStaticProps = async () => {
     `Titano?from=${startOfThisMonthDate}&order=asc&compute=total_supply,circulating_supply`,
     false
   );
-  const announcements = await getCmsContent('announcements', true);
+  const announcements = await getCmsContent('announcements', false);
 
   return {
     props: {
