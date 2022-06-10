@@ -10,7 +10,7 @@ function MenuAppend() {
     <>
       <DonateModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <div className="relative">
-        <div className="fixed bottom-0 left-0 right-0 p-5">
+        <div className="fixed bottom-0 left-0 right-0 md:right-[unset] p-5">
           <div className="text-slate-300 text-sm px-4 mb-4">
             <p>Official Titano links</p>
           </div>
