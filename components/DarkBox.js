@@ -9,7 +9,7 @@ function DarkBox({ className, children, withBorder, withHover }) {
         withHover
           ? 'hover:shadow-titano-pink/10 hover:border-titano-pink/80'
           : ''
-      } shadow-xl p-5 transition`}
+      } shadow-xl py-5 px-3 md:p-5 transition`}
     >
       {children}
     </div>

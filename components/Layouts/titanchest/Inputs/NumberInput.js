@@ -10,7 +10,8 @@ function NumberInput({
   max,
   precision,
   defaultValue,
-  decimalSeparator
+  decimalSeparator,
+  placeholder,
 }) {
   return (
     <Number
@@ -30,6 +31,7 @@ function NumberInput({
       max={max}
       precision={precision}
       decimalSeparator={decimalSeparator}
+      placeholder={placeholder}
     />
   );
 }

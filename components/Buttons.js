@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import React from 'react';
 
-export const Button = ({ href, children, className, type, onClick }) => {
+export const Button = ({
+  href,
+  children,
+  className,
+  type,
+  onClick,
+  disabled,
+}) => {
   const defaultClassName = `rounded-md px-4 py-3 ${className} disabled:cursor-not-allowed disabled:brightness-90`;
 
   const ButtonType = href ? (
@@ -9,7 +16,12 @@ export const Button = ({ href, children, className, type, onClick }) => {
       <a className={defaultClassName}>{children}</a>
     </Link>
   ) : (
-    <button className={defaultClassName} type={type} onClick={onClick}>
+    <button
+      className={defaultClassName}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

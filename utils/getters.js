@@ -126,3 +126,28 @@ export const getTransactions = async (id = '', isServerSide) => {
     return null;
   }
 };
+
+export const getHolders = async (id = '', isServerSide) => {
+  try {
+    const { data } = await axios({
+      url: `${
+        isServerSide
+          ? `${process.env.HOLDERS_API}/`
+          : process.env.NEXT_PUBLIC_HOLDERS_API
+      }${id}`,
+    });
+
+    if (!data) {
+      return null;
+    }
+
+    if (isServerSide) {
+      return data;
+    }
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

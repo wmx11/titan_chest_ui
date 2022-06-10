@@ -1,9 +1,9 @@
 import React from 'react';
-import { Select } from '@mantine/core';
+import { Select as SelectInput } from '@mantine/core';
 
-function SelectInput({ label, value, onChange, data }) {
+function Select({ label, value, onChange, data, placeholder }) {
   return (
-    <Select
+    <SelectInput
       classNames={{
         input:
           'p-5 rounded-md bg-slate-800/90 text-white border border-transparent focus:border-titano-green',
@@ -17,6 +17,7 @@ function SelectInput({ label, value, onChange, data }) {
       onChange={onChange}
       variant="unstyled"
       data={data}
+      placeholder={placeholder}
       styles={{
         label: { color: '#fff' },
       }}
@@ -24,4 +25,4 @@ function SelectInput({ label, value, onChange, data }) {
   );
 }
 
-export default SelectInput;
+export default Select;
