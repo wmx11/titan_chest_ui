@@ -419,7 +419,7 @@ function Holders({ titano, holders, distribution }) {
 
 export default Holders;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const titano = await getStatsList('Titano', true);
   const holders = await getHolders('holders', true);
 
@@ -487,5 +487,6 @@ export const getServerSideProps = async () => {
         },
       ],
     },
+    revalidate: 5, // In seconds
   };
 };
