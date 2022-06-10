@@ -338,13 +338,13 @@ function BurnTracker({ titano, titanoLastDay, burns, cmsContent }) {
 
 export default BurnTracker;
 
-export const getStaticProps = async () => {
-  const titano = await getStatsList('Titano', false);
-  const titanoLastDay = await getStatsList('Titano?last_day=true', false);
+export const getServerSideProps = async () => {
+  const titano = await getStatsList('Titano', true);
+  const titanoLastDay = await getStatsList('Titano?last_day=true', true);
   const burns = await getTransactions('get/burns?limit=100', true);
   const cmsContent = await getCmsContent(
     'content-blocks?filters[block_name][$eq]=burn_tracker&filters[enabled][$eq]=true',
-    false
+    true
   );
 
   return {
@@ -354,6 +354,5 @@ export const getStaticProps = async () => {
       burns,
       cmsContent,
     },
-    revalidate: 10,
   };
 };
