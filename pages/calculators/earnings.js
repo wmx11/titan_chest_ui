@@ -287,12 +287,13 @@ function Index({ titano }) {
 
 export default Index;
 
-export const getServerSideProps = async () => {
-  const titano = await getStatsList('Titano', true);
+export const getStaticProps = async () => {
+  const titano = await getStatsList('Titano', false);
 
   return {
     props: {
       titano,
     },
+    revalidate: 10,
   };
 };

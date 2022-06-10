@@ -177,7 +177,9 @@ function Index({ titano, cmsContent }) {
               <div>
                 {results ? (
                   <DarkBox>
-                    <p className="text-white text-2xl font-bold mb-4">Results</p>
+                    <p className="text-white text-2xl font-bold mb-4">
+                      Results
+                    </p>
                     <DarkBox className="text-white space-y-4">
                       <p>
                         <strong>Price Impact:</strong> {results.impact}%
@@ -357,8 +359,8 @@ function Index({ titano, cmsContent }) {
 
 export default Index;
 
-export const getServerSideProps = async () => {
-  const titano = await getStatsList('Titano', true);
+export const getStaticProps = async () => {
+  const titano = await getStatsList('Titano', false);
   const cmsContent = await getCmsContent(
     'content-blocks?filters[block_name][$eq]=price_impact_disclaimer&filters[enabled][$eq]=true',
     true
@@ -369,5 +371,6 @@ export const getServerSideProps = async () => {
       titano,
       cmsContent,
     },
+    revalidate: 10,
   };
 };

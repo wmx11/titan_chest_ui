@@ -242,22 +242,22 @@ function InflationTracker({
 
 export default InflationTracker;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const titanoToday = await getStatsList(
     'Titano?compute=total_supply,circulating_supply',
-    true
+    false
   );
   const titanoStartOfThisWeek = await getStatsList(
     `Titano?from=${startOfThisWeekDate}&order=asc&compute=total_supply,circulating_supply`,
-    true
+    false
   );
   const titanoStartOfLastWeek = await getStatsList(
     `Titano?from=${startOfLastWeekDate}&order=asc&compute=total_supply,circulating_supply`,
-    true
+    false
   );
   const titanoStartOfThisMonth = await getStatsList(
     `Titano?from=${startOfThisMonthDate}&order=asc&compute=total_supply,circulating_supply`,
-    true
+    false
   );
   const announcements = await getCmsContent('announcements', true);
 
@@ -269,5 +269,6 @@ export const getServerSideProps = async () => {
       titanoStartOfThisMonth,
       announcements,
     },
+    revalidate: 10,
   };
 };

@@ -487,6 +487,6 @@ export const getStaticProps = async ({ res }) => {
         },
       ],
     },
-    revalidate: 5, // In seconds
+    revalidate: 10, // In seconds
   };
 };

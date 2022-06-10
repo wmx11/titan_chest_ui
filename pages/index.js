@@ -161,7 +161,7 @@ export default function Home({
   );
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const titano = await getStatsList(
     'Titano?compute=total_supply,circulating_supply',
     true
@@ -194,5 +194,6 @@ export const getServerSideProps = async () => {
       cmsRoadmap,
       cmsTodayAnnouncements,
     },
+    revalidate: 10,
   };
 };
