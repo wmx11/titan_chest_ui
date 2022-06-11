@@ -432,6 +432,9 @@ export const getStaticProps = async ({ res }) => {
     data: { count: thousand },
   } = await getHolders('holders?limit=1&lte=1000', true);
   const {
+    data: { count: thousandMore },
+  } = await getHolders('holders?limit=1&gte=1000', true);
+  const {
     data: { count: tenThousand },
   } = await getHolders('holders?limit=1&gte=10000', true);
   const {
@@ -459,7 +462,7 @@ export const getStaticProps = async ({ res }) => {
       holders,
       distribution: [
         { name: 'Up to 1,000', value: thousand - dust },
-        { name: '1,000 - 10,000', value: thousand - tenThousand },
+        { name: '1,000 - 10,000', value: thousand - thousandMore },
         { name: '10,000 - 50,000', value: tenThousand - fiftyThousand },
         {
           name: '50,000 - 100,000',
