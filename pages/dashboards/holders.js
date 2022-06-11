@@ -430,7 +430,7 @@ export const getStaticProps = async ({ res }) => {
   } = await getHolders('holders?limit=1&lte=1', true);
   const {
     data: { count: thousand },
-  } = await getHolders('holders?limit=1&gte=1000', true);
+  } = await getHolders('holders?limit=1&lte=1000', true);
   const {
     data: { count: tenThousand },
   } = await getHolders('holders?limit=1&gte=10000', true);
