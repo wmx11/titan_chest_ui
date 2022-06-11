@@ -462,7 +462,7 @@ export const getStaticProps = async ({ res }) => {
       holders,
       distribution: [
         { name: 'Up to 1,000', value: thousand - dust },
-        { name: '1,000 - 10,000', value: thousand - thousandMore },
+        { name: '1,000 - 10,000', value: thousandMore - tenThousand },
         { name: '10,000 - 50,000', value: tenThousand - fiftyThousand },
         {
           name: '50,000 - 100,000',
