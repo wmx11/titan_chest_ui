@@ -39,7 +39,8 @@ function InflationTracker({
     tokenPrice: true,
     inflation: true,
     holders: true,
-    avgHoldings: true,
+    avgHoldings: false,
+    bnbPrice: true,
     thisWeek: true,
     lastWeek: true,
     thisMonth: true,
@@ -153,7 +154,10 @@ function InflationTracker({
           </div>
           {data &&
             data.map(
-              ({ period, date, dataSet, milestones, show }, index) =>
+              (
+                { period, date, dataSet, milestones, show, description },
+                index
+              ) =>
                 show && (
                   <DarkBox key={`data_wrapper_${index}`} className="mb-8">
                     <p className="text-white text-2xl font-bold">{period}</p>
@@ -194,6 +198,10 @@ function InflationTracker({
                           )}
                       </div>
                     </div>
+                    <DarkBox className="mt-4 text-white">
+                      <p className="mb-4 text-xl font-bold">Summary</p>
+                      <p>{description}</p>
+                    </DarkBox>
                     <DarkBox className="mt-4 text-white">
                       <p className="mb-4 font-bold flex gap-1">
                         <Flame className="text-titano-pink animate-pulse" />{' '}

@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { NumberInput as Number } from '@mantine/core';
 
-function NumberInput({
-  value,
-  label,
-  onChange,
-  parser,
-  formatter,
-  max,
-  precision,
-  defaultValue,
-  decimalSeparator,
-  placeholder,
-}) {
+function NumberInput(
+  {
+    value,
+    label,
+    onChange,
+    parser,
+    formatter,
+    max,
+    precision,
+    defaultValue,
+    decimalSeparator,
+    placeholder,
+  },
+  ref
+) {
   return (
     <Number
       defaultValue={defaultValue}
@@ -32,8 +35,9 @@ function NumberInput({
       precision={precision}
       decimalSeparator={decimalSeparator}
       placeholder={placeholder}
+      ref={ref}
     />
   );
 }
 
-export default NumberInput;
+export default NumberInput = forwardRef(NumberInput);

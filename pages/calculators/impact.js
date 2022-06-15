@@ -30,6 +30,8 @@ function Index({ titano, cmsContent }) {
   const [currency, setCurrency] = useState('titano');
   const [amount, setAmount] = useState(1);
 
+  const [bnbPrice, setBnbPrice] = useState();
+
   const getAmount = useCallback(() => {
     if (currency === 'usd') {
       return amount / currentData.price;
@@ -172,12 +174,49 @@ function Index({ titano, cmsContent }) {
                   </div>
                 </div>
               </DarkBox>
+              <DarkBox className="mt-4 text-white">
+                <p className="mb-2 text-xl font-bold">
+                  BNB Price impact on Titano
+                </p>
+                <p className="mb-4 text-sm">
+                  Price is calculated retaining the same token amounts in the
+                  liquidity pool. This only shows the price of Titano token if
+                  the price of BNB was different in the current situation. These
+                  changes do not apply to the price impact calculator.
+                </p>
+                <DarkBox>
+                  <div className="mb-4 flex gap-x-4">
+                    <div className="flex-1">
+                      <NumberInput
+                        value={currentData?.pair_price}
+                        label="BNB Price"
+                        onChange={setBnbPrice}
+                        parser={parseDollar}
+                        formatter={(value) => formatCurrency(value, 'usd', '')}
+                      />
+                    </div>
+                  </div>
+
+                  {currentData && (
+                    <p>
+                      <strong>Titano Price:</strong>{' '}
+                      {toCurrency(
+                        (currentData.bnb_amount / currentData.titano_amount) *
+                          bnbPrice || currentData.price
+                      )}
+                    </p>
+                  )}
+                </DarkBox>
+              </DarkBox>
             </div>
+
             <div className="flex-1 md:min-w-[320px]">
               <div>
                 {results ? (
                   <DarkBox>
-                    <p className="text-white text-2xl font-bold mb-4">Results</p>
+                    <p className="text-white text-2xl font-bold mb-4">
+                      Results
+                    </p>
                     <DarkBox className="text-white space-y-4">
                       <p>
                         <strong>Price Impact:</strong> {results.impact}%
@@ -314,7 +353,7 @@ function Index({ titano, cmsContent }) {
             <div className="flex-1">
               <DarkBox>
                 <Heading className="text-white">Current Market Data</Heading>
-                <div className="flex flex-wrap items-center">
+                <DarkBox className="flex flex-wrap items-center">
                   {currentData && (
                     <>
                       <NeonCardWrapper>
@@ -345,7 +384,7 @@ function Index({ titano, cmsContent }) {
                       </NeonCardWrapper>
                     </>
                   )}
-                </div>
+                </DarkBox>
               </DarkBox>
             </div>
           </div>

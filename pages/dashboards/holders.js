@@ -1,8 +1,9 @@
 import { AccordionItem, Divider, Pagination } from '@mantine/core';
 import { format } from 'date-fns';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import useSWR from 'swr';
+import { ClipboardList } from 'tabler-icons-react';
 import { TitanoGreenButton, TitanoPinkButton } from '../../components/Buttons';
 import Container from '../../components/Container';
 import DarkBox from '../../components/DarkBox';
@@ -33,6 +34,8 @@ function Holders({ titano, holders, distribution }) {
   const [address, setAddress] = useState('');
   const [addressResults, setAddressResults] = useState();
 
+  const pageInput = useRef();
+
   const { data: holdersSwr } = useSWR(
     `/holders?page=${activePage}${queryString}`,
     async () => {
@@ -42,6 +45,7 @@ function Holders({ titano, holders, distribution }) {
     },
     {
       fallbackData: holders,
+      refreshInterval: 0,
     }
   );
 
@@ -356,7 +360,16 @@ function Holders({ titano, holders, distribution }) {
                       },
                       {
                         rows: holdersData.data.holders.map(
-                          ({ address, value, updated_at }, index) => ({
+                          (
+                            {
+                              address,
+                              value,
+                              updated_at,
+                              note,
+                              isProjectWallet,
+                            },
+                            index
+                          ) => ({
                             row: [
                               {
                                 value: (
@@ -368,19 +381,32 @@ function Holders({ titano, holders, distribution }) {
                               },
                               {
                                 value: (
-                                  <a
-                                    href={`https://bscscan.com/token/0x4e3cabd3ad77420ff9031d19899594041c420aee?a=${address}`}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="underline underline-offset-1"
-                                  >
-                                    {address}
-                                  </a>
+                                  <>
+                                    {isProjectWallet && (
+                                      <ClipboardList
+                                        size={20}
+                                        className="inline mr-1"
+                                      />
+                                    )}
+                                    <a
+                                      href={`https://bscscan.com/token/0x4e3cabd3ad77420ff9031d19899594041c420aee?a=${address}`}
+                                      target="_blank"
+                                      rel="noreferrer"
+                                      className="underline underline-offset-1"
+                                    >
+                                      {address}
+                                    </a>
+                                    {note && <div>{note}</div>}
+                                  </>
                                 ),
                                 truncate: true,
                               },
                               { value: value.toLocaleString() },
-                              { value: toCurrency(titanoData.price * value) },
+                              {
+                                value: toCurrency(
+                                  titanoData?.price * value || 0
+                                ),
+                              },
                               {
                                 value: format(
                                   new Date(updated_at),
@@ -394,18 +420,35 @@ function Holders({ titano, holders, distribution }) {
                     ]}
                   />
 
-                  <div className="flex justify-end items-center mt-4">
-                    <Pagination
-                      total={holdersData.data.pageCount}
-                      page={activePage}
-                      onChange={setPage}
-                      classNames={{
-                        item: 'text-white',
-                        dots: 'text-white',
-                        active:
-                          'text-titano-green border border-titano-green bg-titano-green/20',
-                      }}
-                    />
+                  <div className="flex justify-end items-center mt-4 gap-4 flex-wrap">
+                    <div>
+                      <Pagination
+                        total={holdersData.data.pageCount}
+                        page={activePage}
+                        onChange={setPage}
+                        classNames={{
+                          item: 'text-white',
+                          dots: 'text-white',
+                          active:
+                            'text-titano-green border border-titano-green bg-titano-green/20',
+                        }}
+                      />
+
+                      <div className="flex gap-4 mt-4 justify-end">
+                        <div className="w-20">
+                          <NumberInput value={activePage} ref={pageInput} />
+                        </div>
+                        <TitanoGreenButton
+                          onClick={() =>
+                            setPage(
+                              parseInt(pageInput?.current?.value, 10) || 1
+                            )
+                          }
+                        >
+                          Jump to
+                        </TitanoGreenButton>
+                      </div>
+                    </div>
                   </div>
                 </>
               )}

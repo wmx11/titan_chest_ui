@@ -44,6 +44,11 @@ function UseCaseFilter({ toggles, handleToggle }) {
             label="Average Holdings"
           />
           <Switch
+            checked={toggles.bnbPrice}
+            onChange={() => handleToggle('bnbPrice')}
+            label="BNB Price"
+          />
+          <Switch
             checked={toggles.thisWeek}
             onChange={() => handleToggle('thisWeek')}
             label="This Week"
