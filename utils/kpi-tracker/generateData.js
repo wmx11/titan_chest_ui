@@ -65,6 +65,14 @@ export const generateData = ({
         change: countChange && toPercentage(item.price, fromData.price) - 100,
       },
       {
+        name: 'BNB Price',
+        show: state.bnbPrice,
+        value: toCurrency(item.pair_price || 0),
+        change:
+          countChange &&
+          toPercentage(item.pair_price, fromData.pair_price) - 100,
+      },
+      {
         name: 'Inflation : Burn Ratio',
         show: state.inflation,
         value: `${inflation}% : ${Math.round(
@@ -97,7 +105,7 @@ export const generateData = ({
     ];
   };
 
-  return {
+  const data = {
     period,
     date,
     milestones,
@@ -107,4 +115,39 @@ export const generateData = ({
       to: createDataset(toData, true),
     },
   };
+
+  const getEffect = (number, customUp, customDown) =>
+    number > 0 ? customUp || 'grown by' : customDown || 'reduced by';
+
+  const changes = {
+    total_supply: toData.total_supply - fromData.total_supply,
+    circulating_supply: toData.circulating_supply - fromData.circulating_supply,
+    burned_tokens: toData.burned_tokens - fromData.burned_tokens,
+    price: toData.price - fromData.price,
+    pair_price: toData.pair_price - fromData.pair_price,
+  };
+
+  const description = `Over the period of ${period}, Titano Total Supply has ${getEffect(
+    changes.total_supply
+  )} ${Math.trunc(
+    changes.total_supply
+  ).toLocaleString()}, Circulating Supply has ${getEffect(
+    changes.circulating_supply
+  )} ${Math.trunc(
+    changes.circulating_supply
+  ).toLocaleString()}, the amount of Burned Tokens has ${getEffect(
+    changes.burned_tokens
+  )} ${Math.trunc(
+    changes.burned_tokens
+  ).toLocaleString()}, the Price has ${getEffect(
+    changes.price,
+    'went up by',
+    'has fallen by'
+  )} ${toCurrency(changes.price)} while the price of BNB has ${getEffect(
+    changes.pair_price,
+    'went up by',
+    'has fallen by'
+  )} ${toCurrency(changes.pair_price)}`;
+
+  return { ...data, description };
 };
