@@ -22,6 +22,7 @@ import {
 import { getCmsContent, getStatsList } from '../../utils/getters';
 import { generateData } from '../../utils/kpi-tracker/generateData';
 import FundamentalsStatus from '../../components/Layouts/titanchest/FundamentalsStatus';
+import PopoverTooltip from '../../components/Layouts/titanchest/PopoverTooltip';
 
 function InflationTracker({
   titanoToday,
@@ -101,7 +102,7 @@ function InflationTracker({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [milestones, toggles]);
 
-  const StatsTab = ({ value, name, change }) => (
+  const StatsTab = ({ value, name, change, tooltip }) => (
     <DarkBox
       withBorder
       withHover
@@ -120,6 +121,12 @@ function InflationTracker({
         </div>
       ) : (
         ''
+      )}
+
+      {tooltip && (
+        <div className='absolute bottom-1 left-0 px-2'>
+          <PopoverTooltip tooltip={tooltip} />
+        </div>
       )}
     </DarkBox>
   );
@@ -167,12 +174,13 @@ function InflationTracker({
                       <div className="flex gap-4 flex-wrap justify-center">
                         {dataSet.from &&
                           dataSet.from.map(
-                            ({ name, value, show }, fromIndex) =>
+                            ({ name, value, show, tooltip }, fromIndex) =>
                               show && (
                                 <StatsTab
                                   key={`data_wrapper_from_data${fromIndex}`}
                                   value={value}
                                   name={name}
+                                  tooltip={tooltip}
                                 />
                               )
                           )}
@@ -186,13 +194,14 @@ function InflationTracker({
                       <div className="flex gap-4 flex-wrap justify-center">
                         {dataSet.to &&
                           dataSet.to.map(
-                            ({ name, value, change, show }, toIndex) =>
+                            ({ name, value, change, show, tooltip }, toIndex) =>
                               show && (
                                 <StatsTab
                                   key={`data_wrapper_to_data${toIndex}`}
                                   value={value}
                                   name={name}
                                   change={change}
+                                  tooltip={tooltip}
                                 />
                               )
                           )}
