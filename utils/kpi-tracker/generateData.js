@@ -1,8 +1,5 @@
-import { intervalToDuration } from 'date-fns';
-import { toDays } from 'duration-fns';
 import toCurrency from '../toCurrency';
 import toPercentage from '../toPercentage';
-import titanoConfig from '../../config/titano';
 
 export const generateData = ({
   period,
@@ -14,27 +11,31 @@ export const generateData = ({
   state,
 }) => {
   const createDataset = (item, countChange) => {
-    const dates = date.split(' - ');
+    const totalSupplyChange =
+      countChange &&
+      toPercentage(item.total_supply, fromData.total_supply) - 100;
 
-    const days = toDays(
-      intervalToDuration({
-        start: new Date(dates[0]),
-        end: new Date(dates[1]),
-      })
-    );
+    const circulatingSupplyChange =
+      countChange &&
+      toPercentage(
+        item.circulating_supply || item.total_supply,
+        fromData.circulating_supply || fromData.total_supply
+      ) - 100;
 
-    const dailyInterest = titanoConfig.dailyInterest;
+    const burnedTokensChange =
+      countChange &&
+      toPercentage(item.burned_tokens || 0, fromData.burned_tokens || 0) - 100;
 
-    const inflation = Math.trunc(dailyInterest * days * 100);
+    const deflationRatio = totalSupplyChange - circulatingSupplyChange;
+
+    const inflation = Math.trunc(circulatingSupplyChange);
 
     return [
       {
         name: 'Total Supply',
         show: state.totalSupply,
         value: Math.trunc(item.total_supply || 0).toLocaleString(),
-        change:
-          countChange &&
-          toPercentage(item.total_supply, fromData.total_supply) - 100,
+        change: totalSupplyChange,
       },
       {
         name: 'Circulating Supply',
@@ -42,21 +43,13 @@ export const generateData = ({
         value: Math.trunc(
           item.circulating_supply || item.total_supply
         ).toLocaleString(),
-        change:
-          countChange &&
-          toPercentage(
-            item.circulating_supply || item.total_supply,
-            fromData.circulating_supply || fromData.total_supply
-          ) - 100,
+        change: circulatingSupplyChange,
       },
       {
         name: 'Burned Tokens',
         show: state.burnedTokens,
         value: Math.trunc(item.burned_tokens || 0).toLocaleString(),
-        change:
-          countChange &&
-          toPercentage(item.burned_tokens || 0, fromData.burned_tokens || 0) -
-            100,
+        change: burnedTokensChange,
       },
       {
         name: 'Token Price',
@@ -75,17 +68,13 @@ export const generateData = ({
       {
         name: 'Inflation : Burn Ratio',
         show: state.inflation,
-        value: `${inflation}% : ${Math.round(
-          toPercentage(item.burned_tokens || 0, fromData.burned_tokens || 0) -
-            100 ===
-            Infinity
-            ? 0
-            : toPercentage(
-                item.burned_tokens || 0,
-                fromData.burned_tokens || 0
-              ) - 100 || 0
-        ).toFixed(0)}%`,
+        value: `${inflation}% : ${Math.round(deflationRatio).toFixed(0)}%`,
         change: false,
+        tooltip: `Inflation - The amount by which circulating supply has grown during the given period. 
+        Burn Ratio - The amount of tokens that have been removed from circulation in comparison to the figure of inflation during the given period.
+        Example - The circulating supply has inflated by ${inflation}%. The inflation has been slowed down by ${Math.round(
+          deflationRatio
+        ).toFixed(0)}% for this time period.`,
       },
       {
         name: 'Holders',
