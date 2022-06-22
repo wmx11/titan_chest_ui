@@ -23,6 +23,8 @@ import {
 import getMaxPeriodRange from '../../utils/setMaxPeriodRange';
 import { TitanoGreenButton, TitanoPinkButton } from '../../components/Buttons';
 import { InfoCircle } from 'tabler-icons-react';
+import { useRouter } from 'next/router';
+import GoBack from '../../components/GoBack';
 
 function Index({ titano }) {
   const [balance, setBalance] = useState(1000);
@@ -37,6 +39,9 @@ function Index({ titano }) {
   const [futurePrice, setFuturePrice] = useState(titano[0]?.price);
 
   const [results, setResults] = useState();
+
+  const router = useRouter();
+  const { query } = router;
 
   const getPeriod = (periodType, period) => {
     return handlePeriod(periodType, {
@@ -99,6 +104,11 @@ function Index({ titano }) {
     if (titano) {
       setStats(titano[0]);
     }
+
+    if (query.balance) {
+      setBalance(parseInt(query.balance, 10) || 0);
+    }
+
     setMaxPeriod(period, setPeriod, periodType);
     setMaxPeriod(futurePeriod, setFuturePeriod, futurePeriodType);
   }, [
@@ -109,6 +119,7 @@ function Index({ titano }) {
     futurePeriodType,
     futurePeriod,
     titano,
+    query,
   ]);
 
   return (
@@ -128,6 +139,7 @@ function Index({ titano }) {
       </Head>
       <Layout>
         <Container>
+          <GoBack />
           <Heading className="text-white">Earnings Calculator</Heading>
           <p className="text-white mb-4">
             Current Price: {stats ? toCurrency(stats.price) : ''}

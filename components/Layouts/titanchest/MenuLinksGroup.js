@@ -5,6 +5,7 @@ import {
   CurrencyDollarIcon,
   CalculatorIcon,
   NewspaperIcon,
+  UserIcon,
 } from '@heroicons/react/solid';
 import { Burger } from '@mantine/core';
 import MenuLink from './MenuLink';
@@ -45,6 +46,11 @@ function MenuLinksGroup({ isOpen, onBurgerClick, isDrawer }) {
       icon: CalculatorIcon,
     },
     {
+      title: 'Account',
+      href: '/account',
+      icon: UserIcon,
+    },
+    {
       title: 'Dashboards',
       href: '/dashboards',
       icon: Dashboard,
@@ -53,7 +59,9 @@ function MenuLinksGroup({ isOpen, onBurgerClick, isDrawer }) {
 
   return (
     <div
-      className={`${!isDrawer ? 'flex justify-between items-center w-full md:block' : ''}`}
+      className={`${
+        !isDrawer ? 'flex justify-between items-center w-full md:block' : ''
+      }`}
     >
       {links &&
         links.map((item, index) => {

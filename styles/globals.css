@@ -13,3 +13,7 @@ ul li {
 ul ol {
   list-style-type: decimal;
 }
+
+.web3modal-modal-lightbox {
+  z-index: 100 !important;
+}

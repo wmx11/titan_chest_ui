@@ -8,6 +8,7 @@ import { TitanoGreenButton, TitanoPinkButton } from '../../components/Buttons';
 import Container from '../../components/Container';
 import DarkBox from '../../components/DarkBox';
 import DarkTable from '../../components/DarkTable';
+import GoBack from '../../components/GoBack';
 import Heading from '../../components/Heading';
 import Accordion from '../../components/Layouts/titanchest/Accordion';
 import NumberInput from '../../components/Layouts/titanchest/Inputs/NumberInput';
@@ -124,6 +125,7 @@ function Holders({ titano, holders, distribution }) {
       </Head>
       <Layout>
         <Container>
+          <GoBack />
           <Heading className="text-white">Holders Dashboard</Heading>
 
           {titanoData && (

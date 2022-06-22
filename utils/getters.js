@@ -69,6 +69,11 @@ export const getBackedLiquidity = ({ rfv, treasury, liquidity }) => {
   return `${backedLiquidity.toFixed()}%`;
 };
 
+export const getBalance = async (id = '', isServerSide) => {
+  const data = await fetchFromApi({ id, isServerSide, type: 'account' });
+  return data;
+};
+
 export const getCmsContent = async (id = '', isServerSide) => {
   try {
     const {
