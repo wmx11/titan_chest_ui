@@ -7,6 +7,7 @@ import * as gtag from '../utils/gtags';
 import '../styles/globals.css';
 import { useEffect } from 'react';
 import { SWRConfig } from 'swr';
+import { NotificationsProvider } from '@mantine/notifications';
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -36,9 +37,11 @@ function MyApp({ Component, pageProps }) {
           colorScheme: 'light',
         }}
       >
-        <SessionProvider>
-          <Component {...pageProps} />
-        </SessionProvider>
+        <NotificationsProvider>
+          <SessionProvider>
+            <Component {...pageProps} />
+          </SessionProvider>
+        </NotificationsProvider>
       </MantineProvider>
     </SWRConfig>
   );
