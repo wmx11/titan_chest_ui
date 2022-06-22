@@ -18,6 +18,7 @@
     "@tailwindcss/typography": "^0.5.2",
     "@thirdweb-dev/react": "^2.4.2",
     "@thirdweb-dev/sdk": "^2.3.14",
+    "@walletconnect/web3-provider": "^1.7.8",
     "axios": "^0.27.2",
     "chart.js": "^3.7.1",
     "date-fns": "^2.28.0",

@@ -1,8 +1,19 @@
 import { showNotification } from '@mantine/notifications';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 import React, { useEffect, useState } from 'react';
 import Web3Modal from 'web3modal';
 
 const providerOptions = {
+  walletconnect: {
+    package: WalletConnectProvider,
+    options: {
+      network: 'binance',
+      rpc: {
+        56: 'https://bsc-dataseed.binance.org/',
+      },
+    },
+    network: 'mainnet',
+  },
   binancechainwallet: {
     package: true,
   },
@@ -46,7 +57,11 @@ function useConnectWallet() {
 
   useEffect(() => {
     if (!web3Modal) {
-      const web3Auth = new Web3Modal({ providerOptions, cacheProvider: true });
+      const web3Auth = new Web3Modal({
+        providerOptions,
+        cacheProvider: true,
+        network: 'mainnet',
+      });
 
       setWeb3Modal(web3Auth);
 
