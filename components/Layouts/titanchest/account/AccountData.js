@@ -72,20 +72,20 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {toCurrency(titano.price)}
                 </NeonText>
-                <NeonText className="text-xs">Current Price</NeonText>
+                <NeonText className="!text-xs">Current Price</NeonText>
               </DarkBox>
               <DarkBox withBorder withHover className="text-center flex-1">
                 <NeonText className="text-3xl font-bold mb-2">
                   {toCurrency(titano.marketcap)}
                 </NeonText>
-                <NeonText className="text-xs">Market Cap</NeonText>
+                <NeonText className="!text-xs">Market Cap</NeonText>
               </DarkBox>
 
               <DarkBox withBorder withHover className="text-center flex-1">
                 <NeonText className="text-3xl font-bold mb-2">
                   {toCurrency(titano.liquidity)}
                 </NeonText>
-                <NeonText className="text-xs">Liquidity</NeonText>
+                <NeonText className="!text-xs">Liquidity</NeonText>
               </DarkBox>
 
               {/* <DarkBox withBorder withHover className="text-center flex-1">
@@ -116,13 +116,13 @@ function AccountData({ titano, address }) {
               <NeonText className="text-3xl font-bold mb-2">
                 {(holder.balance || 0).toLocaleString()}
               </NeonText>
-              <NeonText className="text-xs">Your Balance (Tokens) </NeonText>
+              <NeonText className="!text-xs">Your Balance (Tokens) </NeonText>
             </DarkBox>
             <DarkBox withBorder withHover className="text-center flex-1">
               <NeonText className="text-3xl font-bold mb-2">
                 {toCurrency(holder.balance * titano.price || 0)}
               </NeonText>
-              <NeonText className="text-xs">USD Value</NeonText>
+              <NeonText className="!text-xs">USD Value</NeonText>
             </DarkBox>
           </div>
           <div className="mb-4">
@@ -199,13 +199,13 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {(dailyInterest || 0).toLocaleString()}
                 </NeonText>
-                <NeonText className="text-xs">Tokens per day</NeonText>
+                <NeonText className="!text-xs">Tokens per day</NeonText>
               </DarkBox>
               <DarkBox withBorder withHover className="text-center flex-1">
                 <NeonText className="text-3xl font-bold mb-2">
                   {toCurrency(dailyInterest * titano.price || 0)}
                 </NeonText>
-                <NeonText className="text-xs">USD Value</NeonText>
+                <NeonText className="!text-xs">USD Value</NeonText>
               </DarkBox>
             </div>
             <div className="mt-4">
@@ -225,7 +225,7 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {(nextRebase || 0).toLocaleString()}
                 </NeonText>
-                <NeonText className="text-xs">
+                <NeonText className="!text-xs">
                   Tokens earned in the next 30 minutes
                 </NeonText>
               </DarkBox>
@@ -233,7 +233,7 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {toCurrency(nextRebase * titano.price || 0)}
                 </NeonText>
-                <NeonText className="text-xs">USD Value</NeonText>
+                <NeonText className="!text-xs">USD Value</NeonText>
               </DarkBox>
             </div>
           </DarkBox>
@@ -250,7 +250,7 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {(weeklyInterest || 0).toLocaleString()}
                 </NeonText>
-                <NeonText className="text-xs">
+                <NeonText className="!text-xs">
                   Interest generated (Tokens){' '}
                 </NeonText>
               </DarkBox>
@@ -258,7 +258,7 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {toCurrency(weeklyInterest * titano.price || 0)}
                 </NeonText>
-                <NeonText className="text-xs">USD Value</NeonText>
+                <NeonText className="!text-xs">USD Value</NeonText>
               </DarkBox>
             </div>
           </div>
@@ -270,7 +270,7 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {(monthlyInterest || 0).toLocaleString()}
                 </NeonText>
-                <NeonText className="text-xs">
+                <NeonText className="!text-xs">
                   Interest generated (Tokens){' '}
                 </NeonText>
               </DarkBox>
@@ -278,7 +278,7 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {toCurrency(monthlyInterest * titano.price || 0)}
                 </NeonText>
-                <NeonText className="text-xs">USD Value</NeonText>
+                <NeonText className="!text-xs">USD Value</NeonText>
               </DarkBox>
             </div>
           </div>
@@ -290,7 +290,7 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {(quarterlyInterest || 0).toLocaleString()}
                 </NeonText>
-                <NeonText className="text-xs">
+                <NeonText className="!text-xs">
                   Interest generated (Tokens){' '}
                 </NeonText>
               </DarkBox>
@@ -298,7 +298,7 @@ function AccountData({ titano, address }) {
                 <NeonText className="text-3xl font-bold mb-2">
                   {toCurrency(quarterlyInterest * titano.price || 0)}
                 </NeonText>
-                <NeonText className="text-xs">USD Value</NeonText>
+                <NeonText className="!text-xs">USD Value</NeonText>
               </DarkBox>
             </div>
           </div>
