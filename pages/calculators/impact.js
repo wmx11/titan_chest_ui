@@ -1,6 +1,6 @@
 import { Divider } from '@mantine/core';
 import Head from 'next/head';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CmsBlock from '../../components/CmsBlock';
 import Container from '../../components/Container';
 import DarkBox from '../../components/DarkBox';
@@ -15,110 +15,31 @@ import Layout from '../../components/Layouts/titanchest/Layout';
 import NeonCardWrapper from '../../components/NeonCardWrapper';
 import NeonText from '../../components/NeonText';
 import SmallText from '../../components/SmallText';
-import { getCmsContent, getStatsList } from '../../utils/getters';
+import { getCmsContent } from '../../utils/getters';
 import toCurrency from '../../utils/toCurrency';
 import toPercentage from '../../utils/toPercentage';
 import titanoConfig from '../../config/titano';
 import { InfoCircle } from 'tabler-icons-react';
+import usePriceImpact from '../../hooks/usePriceImpact';
+import GoBack from '../../components/GoBack';
 
-function Index({ titano, cmsContent }) {
-  const [currentData, setCurrentData] = useState();
-  const [results, setResults] = useState();
-  const [constantProduct, setConstantProduct] = useState(0);
-
-  const [type, setType] = useState('sell');
-  const [currency, setCurrency] = useState('titano');
-  const [amount, setAmount] = useState(1);
+function Index({ cmsContent }) {
+  const {
+    impactResults: results,
+    amount,
+    type,
+    currency,
+    titano: currentData,
+    setAmount,
+    setType,
+    setCurrency,
+  } = usePriceImpact({
+    transactionType: 'sell',
+    transactionCurrency: 'titano',
+    transactionAmount: 100,
+  });
 
   const [bnbPrice, setBnbPrice] = useState();
-
-  const getAmount = useCallback(() => {
-    if (currency === 'usd') {
-      return amount / currentData.price;
-    }
-
-    return amount;
-  }, [amount, currency, currentData]);
-
-  // Titano in, BNB out
-  const handleSell = useCallback(() => {
-    if (!currentData) {
-      return;
-    }
-
-    const titano_amount = currentData.titano_amount + getAmount();
-    const bnb_amount = constantProduct / titano_amount;
-    const titanoBnb = bnb_amount / titano_amount;
-    const liquidity = bnb_amount * currentData.pair_price;
-    const price = titanoBnb * currentData.pair_price;
-
-    setResults({
-      impact: ((price * 100) / currentData.price - 100 || 0).toFixed(3),
-      price: price || 0,
-      liquidity: liquidity || 0,
-      bnb_amount: bnb_amount || 0,
-      titano_amount: titano_amount || 0,
-      received: currentData.bnb_amount - bnb_amount || 0,
-    });
-  }, [constantProduct, currentData, getAmount]);
-
-  // BNB in, Titano out
-  const handleBuy = useCallback(() => {
-    if (!currentData) {
-      return;
-    }
-
-    const bnb_amount =
-      currentData.bnb_amount +
-      getAmount() * (currentData.bnb_amount / currentData.titano_amount);
-
-    const titano_amount = constantProduct / bnb_amount;
-
-    const titanoBnb = bnb_amount / titano_amount;
-    const liquidity = bnb_amount * currentData.pair_price;
-    const price = titanoBnb * currentData.pair_price;
-
-    setResults({
-      impact: ((price * 100) / currentData.price - 100 || 0).toFixed(3),
-      price: price || 0,
-      liquidity: liquidity || 0,
-      bnb_amount: bnb_amount || 0,
-      titano_amount: titano_amount || 0,
-      received: currentData.titano_amount - titano_amount || 0,
-    });
-  }, [constantProduct, currentData, getAmount]);
-
-  const calculate = useCallback(() => {
-    switch (type) {
-      case 'buy':
-        handleBuy();
-        break;
-      case 'sell':
-        handleSell();
-        break;
-      default:
-        break;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type, currency, amount]);
-
-  useEffect(() => {
-    if (titano) {
-      const { price, pair_price, liquidity } = titano[0];
-
-      setCurrentData({
-        price,
-        pair_price,
-        liquidity,
-        bnb_amount: liquidity / pair_price,
-        titano_amount: liquidity / price,
-      });
-
-      setConstantProduct((liquidity / pair_price) * (liquidity / price));
-
-      calculate();
-    }
-  }, [titano, calculate]);
 
   return (
     <div>
@@ -136,6 +57,7 @@ function Index({ titano, cmsContent }) {
       </Head>
       <Layout>
         <Container>
+          <GoBack />
           <Heading className="text-white">Price Impact Calculator</Heading>
           <div className="flex flex-col md:flex-row md:flex-wrap gap-x-4 gap-y-4">
             <div className="flex-1 md:min-w-[320px]">
@@ -212,7 +134,7 @@ function Index({ titano, cmsContent }) {
 
             <div className="flex-1 md:min-w-[320px]">
               <div>
-                {results ? (
+                {results && results?.price > 0 ? (
                   <DarkBox>
                     <p className="text-white text-2xl font-bold mb-4">
                       Results
@@ -372,13 +294,13 @@ function Index({ titano, cmsContent }) {
                       </NeonCardWrapper>
                       <NeonCardWrapper>
                         <NeonText>
-                          {currentData.bnb_amount.toLocaleString()}
+                          {(currentData.bnb_amount || 0).toLocaleString()}
                         </NeonText>
                         <SmallText>WBNB Amount (LP)</SmallText>
                       </NeonCardWrapper>
                       <NeonCardWrapper>
                         <NeonText>
-                          {currentData.titano_amount.toLocaleString()}
+                          {(currentData.titano_amount || 0).toLocaleString()}
                         </NeonText>
                         <SmallText>TITANO Amount (LP)</SmallText>
                       </NeonCardWrapper>
@@ -397,7 +319,6 @@ function Index({ titano, cmsContent }) {
 export default Index;
 
 export const getServerSideProps = async () => {
-  const titano = await getStatsList('Titano', true);
   const cmsContent = await getCmsContent(
     'content-blocks?filters[block_name][$eq]=price_impact_disclaimer&filters[enabled][$eq]=true',
     true
@@ -405,7 +326,6 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      titano,
       cmsContent,
     },
   };
