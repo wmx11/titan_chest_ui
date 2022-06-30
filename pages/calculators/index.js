@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react';
+import { Fade } from 'react-reveal';
 import { ReportMoney, AlertTriangle } from 'tabler-icons-react';
 import Container from '../../components/Container';
 import DarkCard from '../../components/DarkCard';
@@ -29,64 +30,66 @@ function Index() {
       <Layout>
         <Container>
           <Heading className="text-white">Calculators</Heading>
-          <div className="flex gap-3 flex-wrap w-full items-stretch">
-            <Link href="/calculators/impact">
-              <a className="lg:w-[49%]">
-                <DarkCard
-                  Head={
-                    <NeonCardWrapper className="text-center">
-                      <NeonText>
-                        <AlertTriangle size={25} color={styles.titanoGreen} />
-                      </NeonText>
-                      <NeonText>Impact Calculator</NeonText>
-                      <SmallText>
-                        Potential price impact of a transaction
-                      </SmallText>
-                    </NeonCardWrapper>
-                  }
-                  Body={
-                    <>
-                      <p>Calculate the potential price impact.</p>
-                      <strong>
-                        The accuracy of this calculator is around 80%. It does
-                        not take into account all other market factors.
-                      </strong>
-                      <p></p>
-                    </>
-                  }
-                />
-              </a>
-            </Link>
-            <Link href="/calculators/earnings">
-              <a className="lg:w-[49%]">
-                <DarkCard
-                  Head={
-                    <NeonCardWrapper className="text-center">
-                      <NeonText>
-                        <ReportMoney size={25} color={styles.titanoGreen} />
-                      </NeonText>
-                      <NeonText>Earnings Calculator</NeonText>
-                      <SmallText>Earnings over time</SmallText>
-                    </NeonCardWrapper>
-                  }
-                  Body={
-                    <>
-                      <p>
-                        Calculate your earnings and rebases over a period of
-                        time.
-                      </p>
-                      <strong>
-                        You can select different time periods. You can also
-                        choose the price of Titano at any given date. Make sure
-                        that the date in the future is not higher or equal to
-                        the last day.
-                      </strong>
-                    </>
-                  }
-                />
-              </a>
-            </Link>
-          </div>
+          <Fade>
+            <div className="flex gap-3 flex-wrap w-full items-stretch">
+              <Link href="/calculators/impact">
+                <a className="lg:w-[49%] flex self-stretch">
+                  <DarkCard
+                    Head={
+                      <NeonCardWrapper className="text-center">
+                        <NeonText>
+                          <AlertTriangle size={25} color={styles.titanoGreen} />
+                        </NeonText>
+                        <NeonText>Impact Calculator</NeonText>
+                        <SmallText>
+                          Potential price impact of a transaction
+                        </SmallText>
+                      </NeonCardWrapper>
+                    }
+                    Body={
+                      <>
+                        <p>Calculate the potential price impact.</p>
+                        <strong>
+                          The accuracy of this calculator is around 80%. It does
+                          not take into account all other market factors.
+                        </strong>
+                        <p></p>
+                      </>
+                    }
+                  />
+                </a>
+              </Link>
+              <Link href="/calculators/earnings">
+                <a className="lg:w-[49%] flex self-stretch">
+                  <DarkCard
+                    Head={
+                      <NeonCardWrapper className="text-center">
+                        <NeonText>
+                          <ReportMoney size={25} color={styles.titanoGreen} />
+                        </NeonText>
+                        <NeonText>Earnings Calculator</NeonText>
+                        <SmallText>Earnings over time</SmallText>
+                      </NeonCardWrapper>
+                    }
+                    Body={
+                      <>
+                        <p>
+                          Calculate your earnings and rebases over a period of
+                          time.
+                        </p>
+                        <strong>
+                          You can select different time periods. You can also
+                          choose the price of Titano at any given date. Make
+                          sure that the date in the future is not higher or
+                          equal to the last day.
+                        </strong>
+                      </>
+                    }
+                  />
+                </a>
+              </Link>
+            </div>
+          </Fade>
         </Container>
       </Layout>
     </div>
