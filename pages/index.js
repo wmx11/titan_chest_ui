@@ -131,7 +131,7 @@ export default function Home({
           <div className="flex-1 mb-8">
             {/* Homepage CMS Content */}
             {cmsContent && (
-              <DarkBox className="mb-8">
+              <DarkBox className="mb-8 min-w-[300px]">
                 <CmsBlock
                   dataSet={cmsContent}
                   block="home_disclaimer"
@@ -139,9 +139,10 @@ export default function Home({
                 />
               </DarkBox>
             )}
-
+          </div>
+          <div className="flex-1 mb-8">
             {/* Crypto Heat Map */}
-            <DarkBox>
+            <DarkBox className="min-w-[300px]">
               <CmsBlock
                 dataSet={cmsContent}
                 block="home_heatmap"
