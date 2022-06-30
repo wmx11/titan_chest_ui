@@ -46,7 +46,7 @@ function Aside() {
                 <div className="flex flex-col h-full">
                   <div className="overflow-hidden h-full">
                     <ScrollArea
-                      type="auto"
+                      type="always"
                       style={{ height: '100%', width: '100%' }}
                     >
                       <MenuLinksGroup isDrawer={true} />

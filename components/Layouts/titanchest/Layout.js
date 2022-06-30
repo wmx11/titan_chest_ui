@@ -10,10 +10,9 @@ function Layout({ children, viewportRef }) {
       <div className="flex-1 flex justify-center items-center p-1 md:p-5 z-10 w-full">
         <div className="backdrop-blur-xl bg-slate-800/50 overflow-hidden h-full w-full rounded-md p-1 md:p-5 shadow-xl shadow-titano-pink/5">
           <ScrollArea
-            type="hover"
+            type="auto"
             style={{ height: '100vh', paddingBottom: '100px', width: '100%' }}
             viewportRef={viewportRef}
-            offsetScrollbars
           >
             {children}
           </ScrollArea>
