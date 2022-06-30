@@ -4,44 +4,44 @@ export const statsTemplate = [
   {
     entry: 'price',
     name: 'Price',
-    tooltip: 'Displays the current Titano price in $USD',
+    tooltip: 'Current Titano Token price in $USD.',
   },
   {
     entry: 'marketcap',
     name: 'Market Cap',
-    tooltip: 'Displays the current Titano market cap. (Total supply * Price)',
+    tooltip: 'Titano Current Market Cap. Total Supply * Price.',
   },
   {
     entry: 'treasury',
     name: 'Treasury',
     tooltip:
-      'Displays the current Titano treasury $USD value. Treasury assets are kept in BNB tokens.',
+      'Titano Treasury Valuation in $USD. Titano Assets held in BNB Tokens.',
   },
   {
     entry: 'rfv',
     name: 'RFV',
     tooltip:
-      'Displays the current Titano RFV $USD value. RFV assets are kept in BNB tokens. RFV is used to support Titano liquidity when it gets extremely low.',
+      'Titano Risk Free Value (RVF) wallet valuation in $USD. RFV assets held in BNB Tokens. The RFV purpose is to support Titano Liquidity when appropriate.',
   },
   {
     entry: 'liquidity',
     name: 'Liquidity (WBNB)',
     tooltip:
-      'Displays the current Titano liquidity $USD value. Titano liquidity pair is the WBNB token.',
+      'Current Titano Liquidity valuation in $USD. Titano Liquidity pair = WBNB token.',
   },
   {
     entry: 'holders',
-    name: 'Holders (>= 1)',
+    name: 'Holders (1+ tokens)',
     currency: false,
     tooltip:
-      'Displays the current number of wallets holding at least 1 Titano token. Values may fluctuate. Values will differ from that of BSC Scan.',
+      'Current number of wallets holding 1+ Titano Tokens. Fluctuates regularly and differs to BSC Scan.',
   },
   {
     entry: 'average_holdings',
     name: 'Average Holding (Titano tokens)',
     currency: false,
     tooltip:
-      'Displays the average amount of Titano tokens a typical wallet is holding.',
+      'Calculates (adds up all holder wallets tokens and divides by the number of holder wallets) the average wallet token holding.',
   },
   {
     entry: false,
@@ -53,27 +53,26 @@ export const statsTemplate = [
         liquidity: data.liquidity,
       }),
     tooltip:
-      'Healthiness of the protocol. Displays the percentage of liquidity that both the RFV and Treasury combined could provide.',
+      'Healthiness of the protocol. RFV+Treasury as a percentage of Liquidity. Higher = better.',
   },
   {
     entry: 'pair_price',
     name: 'BNB Price',
-    tooltip:
-      'Displays the $USD value of BNB token. (Titano main liquidity pair)',
+    tooltip: 'Current BNB Token valuation in $USD Titano main liquidity pair.',
   },
   {
     entry: 'total_supply',
     compute: 'marketcap,price,total_supply',
     name: 'Total Supply',
     currency: false,
-    tooltip: 'Displays the Titano token total supply.',
+    tooltip: 'Titano Token total supply.',
   },
   {
     entry: 'burned_tokens',
     name: 'Tokens Burned',
     currency: false,
     tooltip:
-      'Displays the amount of Titano tokens in the burn wallet. Please keep in mind that tokens inside the burn wallet are also receiving rebases.',
+      'Total number of Tokens removed from circulation and stored in the burn wallet. Note: burn wallet tokens receive rebases.',
   },
   {
     entry: 'circulating_supply',
@@ -81,7 +80,7 @@ export const statsTemplate = [
     name: 'Circulating Supply',
     currency: false,
     tooltip:
-      'Displays the amount of Titano tokens in circulation (Excludes Burned Tokens). The value might decrease if Titano tokens are being burned which can indicate deflation. A 24h % lower than 1.92% indicates deflation.',
+      'Total supply of tokens less tokens burned. Value decreasing or a 24hour increase rate of less than 1.92% indicates deflation.',
   },
   {
     entry: false,
@@ -92,6 +91,6 @@ export const statsTemplate = [
       }`;
     },
     tooltip:
-      'Overall market sentiment. Extreme fear can be a sign that investors are too worried. That could be a buying opportunity. When Investors are getting too greedy, that means the market is due for a correction.',
+      'Demonstrates how the market is overall. Extreme fear signals investors are anxious and often a good buying opportunity. Extreme greed signals investors are overly bullish and a market correction is imminent.',
   },
 ];
