@@ -13,18 +13,18 @@ export const generateData = ({
   const createDataset = (item, countChange) => {
     const totalSupplyChange =
       countChange &&
-      toPercentage(item.total_supply, fromData.total_supply) - 100;
+      toPercentage(item.total_supply, fromData?.total_supply) - 100;
 
     const circulatingSupplyChange =
       countChange &&
       toPercentage(
         item.circulating_supply || item.total_supply,
-        fromData.circulating_supply || fromData.total_supply
+        fromData?.circulating_supply || fromData?.total_supply
       ) - 100;
 
     const burnedTokensChange =
       countChange &&
-      toPercentage(item.burned_tokens || 0, fromData.burned_tokens || 0) - 100;
+      toPercentage(item?.burned_tokens || 0, fromData?.burned_tokens || 0) - 100;
 
     const deflationRatio = totalSupplyChange - circulatingSupplyChange;
 
@@ -34,36 +34,36 @@ export const generateData = ({
       {
         name: 'Total Supply',
         show: state.totalSupply,
-        value: Math.trunc(item.total_supply || 0).toLocaleString(),
+        value: Math.trunc(item?.total_supply || 0).toLocaleString(),
         change: totalSupplyChange,
       },
       {
         name: 'Circulating Supply',
         show: state.circulatingSupply,
         value: Math.trunc(
-          item.circulating_supply || item.total_supply
+          item?.circulating_supply || item?.total_supply
         ).toLocaleString(),
         change: circulatingSupplyChange,
       },
       {
         name: 'Burned Tokens',
         show: state.burnedTokens,
-        value: Math.trunc(item.burned_tokens || 0).toLocaleString(),
+        value: Math.trunc(item?.burned_tokens || 0).toLocaleString(),
         change: burnedTokensChange,
       },
       {
         name: 'Token Price',
         show: state.tokenPrice,
-        value: toCurrency(item.price),
-        change: countChange && toPercentage(item.price, fromData.price) - 100,
+        value: toCurrency(item?.price),
+        change: countChange && toPercentage(item?.price, fromData?.price) - 100,
       },
       {
         name: 'BNB Price',
         show: state.bnbPrice,
-        value: toCurrency(item.pair_price || 0),
+        value: toCurrency(item?.pair_price || 0),
         change:
           countChange &&
-          toPercentage(item.pair_price, fromData.pair_price) - 100,
+          toPercentage(item?.pair_price, fromData?.pair_price) - 100,
       },
       {
         name: 'Inflation : Burn Ratio',
@@ -79,17 +79,17 @@ export const generateData = ({
       {
         name: 'Holders',
         show: state.holders,
-        value: (item.holders || 0).toLocaleString(),
+        value: (item?.holders || 0).toLocaleString(),
         change:
-          countChange && toPercentage(item.holders, fromData.holders) - 100,
+          countChange && toPercentage(item?.holders, fromData?.holders) - 100,
       },
       {
         name: 'Avg. Holdings',
         show: state.avgHoldings,
-        value: Math.trunc(item.average_holdings || 0).toLocaleString(),
+        value: Math.trunc(item?.average_holdings || 0).toLocaleString(),
         change:
           countChange &&
-          toPercentage(item.average_holdings, fromData.average_holdings) - 100,
+          toPercentage(item?.average_holdings, fromData?.average_holdings) - 100,
       },
     ];
   };
