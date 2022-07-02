@@ -1,15 +1,27 @@
-import { format, previousMonday, startOfMonth, startOfWeek } from 'date-fns';
+import {
+  format,
+  previousMonday,
+  startOfMonth,
+  startOfWeek,
+  endOfMonth,
+  sub,
+} from 'date-fns';
 
 export const formatDate = (date) => format(date, 'yyyy-MM-dd');
 
-export const startOfThisMonthDate = formatDate(startOfMonth(new Date()));
+export const getStartOfThisMonthDate = () =>
+  formatDate(startOfMonth(new Date()));
 
-export const startOfThisWeekDate = formatDate(
-  startOfWeek(new Date(), { weekStartsOn: 1 })
-);
+export const getStartOfPreviousMonth = () =>
+  formatDate(startOfMonth(sub(new Date(), { months: 1 })));
 
-export const startOfLastWeekDate = formatDate(
-  previousMonday(new Date(startOfThisWeekDate))
-);
+export const getEndOfPreviousMonth = () =>
+  formatDate(endOfMonth(sub(new Date(), { months: 1 })));
 
-export const today = formatDate(new Date());
+export const getStartOfThisWeekDate = () =>
+  formatDate(startOfWeek(new Date(), { weekStartsOn: 1 }));
+
+export const getStartOfLastWeekDate = () =>
+  formatDate(previousMonday(new Date(getStartOfThisWeekDate())));
+
+export const getToday = () => formatDate(new Date());
