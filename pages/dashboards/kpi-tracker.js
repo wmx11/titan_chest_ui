@@ -14,10 +14,12 @@ import NeonText from '../../components/NeonText';
 import useCmsData from '../../hooks/cms/useCmsData';
 import {
   formatDate,
-  startOfThisMonthDate,
-  startOfThisWeekDate,
-  startOfLastWeekDate,
-  today,
+  getStartOfThisMonthDate,
+  getStartOfThisWeekDate,
+  getStartOfLastWeekDate,
+  getStartOfPreviousMonth,
+  getEndOfPreviousMonth,
+  getToday,
 } from '../../utils/dates';
 import { getCmsContent, getStatsList } from '../../utils/getters';
 import { generateData } from '../../utils/kpi-tracker/generateData';
@@ -29,6 +31,8 @@ function InflationTracker({
   titanoStartOfThisWeek,
   titanoStartOfLastWeek,
   titanoStartOfThisMonth,
+  titanoStartOfPreviousMonth,
+  titanoEndOfPreviousMonth,
   announcements,
 }) {
   const [data, setData] = useState();
@@ -45,6 +49,7 @@ function InflationTracker({
     thisWeek: true,
     lastWeek: true,
     thisMonth: true,
+    previousMonth: true,
   });
 
   const handleToggle = (toggler) => {
@@ -59,40 +64,53 @@ function InflationTracker({
       titanoStartOfThisWeek &&
       titanoStartOfLastWeek &&
       titanoStartOfThisMonth &&
+      titanoStartOfPreviousMonth &&
+      titanoEndOfPreviousMonth &&
       announcements
     ) {
       const dataSet = [
         generateData({
           period: 'This Week',
-          date: `${startOfThisWeekDate} - ${today}`,
+          date: `${getStartOfThisWeekDate()} - ${getToday()}`,
           fromData: titanoStartOfThisWeek[0],
           toData: titanoToday[0],
           milestones: milestones.filter(({ createdAt }) =>
-            isAfter(new Date(createdAt), new Date(startOfThisWeekDate))
+            isAfter(new Date(createdAt), new Date(getStartOfThisWeekDate()))
           ),
           type: 'thisWeek',
           state: toggles,
         }),
         generateData({
           period: 'Last Week',
-          date: `${startOfLastWeekDate} - ${startOfThisWeekDate}`,
+          date: `${getStartOfLastWeekDate()} - ${getStartOfThisWeekDate()}`,
           fromData: titanoStartOfLastWeek[0],
           toData: titanoStartOfThisWeek[0],
           milestones: milestones.filter(({ createdAt }) =>
-            isAfter(new Date(createdAt), new Date(startOfLastWeekDate))
+            isAfter(new Date(createdAt), new Date(getStartOfLastWeekDate()))
           ),
           type: 'lastWeek',
           state: toggles,
         }),
         generateData({
           period: 'This Month',
-          date: `${startOfThisMonthDate} - ${today}`,
+          date: `${getStartOfThisMonthDate()} - ${getToday()}`,
           fromData: titanoStartOfThisMonth[0],
           toData: titanoToday[0],
           milestones: milestones.filter(({ createdAt }) =>
-            isAfter(new Date(createdAt), new Date(startOfThisMonthDate))
+            isAfter(new Date(createdAt), new Date(getStartOfThisMonthDate()))
           ),
           type: 'thisMonth',
+          state: toggles,
+        }),
+        generateData({
+          period: 'Previous Month',
+          date: `${getStartOfPreviousMonth()} - ${getEndOfPreviousMonth()}`,
+          fromData: titanoStartOfPreviousMonth[0],
+          toData: titanoEndOfPreviousMonth[0],
+          milestones: milestones.filter(({ createdAt }) =>
+            isAfter(new Date(createdAt), new Date(getStartOfPreviousMonth()))
+          ),
+          type: 'previousMonth',
           state: toggles,
         }),
       ];
@@ -124,7 +142,7 @@ function InflationTracker({
       )}
 
       {tooltip && (
-        <div className='absolute bottom-1 left-0 px-2'>
+        <div className="absolute bottom-1 left-0 px-2">
           <PopoverTooltip tooltip={tooltip} />
         </div>
       )}
@@ -265,15 +283,23 @@ export const getServerSideProps = async () => {
     true
   );
   const titanoStartOfThisWeek = await getStatsList(
-    `Titano?from=${startOfThisWeekDate}&order=asc&compute=total_supply,circulating_supply`,
+    `Titano?from=${getStartOfThisWeekDate()}&order=asc&compute=total_supply,circulating_supply`,
     true
   );
   const titanoStartOfLastWeek = await getStatsList(
-    `Titano?from=${startOfLastWeekDate}&order=asc&compute=total_supply,circulating_supply`,
+    `Titano?from=${getStartOfLastWeekDate()}&order=asc&compute=total_supply,circulating_supply`,
     true
   );
   const titanoStartOfThisMonth = await getStatsList(
-    `Titano?from=${startOfThisMonthDate}&order=asc&compute=total_supply,circulating_supply`,
+    `Titano?from=${getStartOfThisMonthDate()}&order=asc&compute=total_supply,circulating_supply`,
+    true
+  );
+  const titanoStartOfPreviousMonth = await getStatsList(
+    `Titano?from=${getStartOfPreviousMonth()}&order=asc&compute=total_supply,circulating_supply`,
+    true
+  );
+  const titanoEndOfPreviousMonth = await getStatsList(
+    `Titano?from=${getEndOfPreviousMonth()}&order=asc&compute=total_supply,circulating_supply`,
     true
   );
   const announcements = await getCmsContent('announcements', true);
@@ -284,6 +310,8 @@ export const getServerSideProps = async () => {
       titanoStartOfThisWeek,
       titanoStartOfLastWeek,
       titanoStartOfThisMonth,
+      titanoStartOfPreviousMonth,
+      titanoEndOfPreviousMonth,
       announcements,
     },
   };
