@@ -63,6 +63,11 @@ function UseCaseFilter({ toggles, handleToggle }) {
             onChange={() => handleToggle('thisMonth')}
             label="This Month"
           />
+          <Switch
+            checked={toggles.previousMonth}
+            onChange={() => handleToggle('previousMonth')}
+            label="Previous Month"
+          />
         </div>
       </AccordionItem>
     </Accordion>
