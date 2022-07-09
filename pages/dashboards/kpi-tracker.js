@@ -1,5 +1,5 @@
 import { Divider } from '@mantine/core';
-import { isAfter } from 'date-fns';
+import { isAfter, isBefore } from 'date-fns';
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -86,7 +86,8 @@ function InflationTracker({
           fromData: titanoStartOfLastWeek[0],
           toData: titanoStartOfThisWeek[0],
           milestones: milestones.filter(({ createdAt }) =>
-            !isAfter(new Date(createdAt), new Date(getStartOfThisWeekDate()))
+            isBefore(new Date(createdAt), new Date(getStartOfThisWeekDate())) &&
+            isAfter(new Date(createdAt), new Date(getStartOfLastWeekDate()))
           ),
           type: 'lastWeek',
           state: toggles,
