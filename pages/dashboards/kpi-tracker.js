@@ -86,7 +86,7 @@ function InflationTracker({
           fromData: titanoStartOfLastWeek[0],
           toData: titanoStartOfThisWeek[0],
           milestones: milestones.filter(({ createdAt }) =>
-            isAfter(new Date(createdAt), new Date(getStartOfLastWeekDate()))
+            !isAfter(new Date(createdAt), new Date(getStartOfThisWeekDate()))
           ),
           type: 'lastWeek',
           state: toggles,
@@ -108,7 +108,7 @@ function InflationTracker({
           fromData: titanoStartOfPreviousMonth[0],
           toData: titanoEndOfPreviousMonth[0],
           milestones: milestones.filter(({ createdAt }) =>
-            isAfter(new Date(createdAt), new Date(getStartOfPreviousMonth()))
+            !isAfter(new Date(createdAt), new Date(getEndOfPreviousMonth()))
           ),
           type: 'previousMonth',
           state: toggles,
